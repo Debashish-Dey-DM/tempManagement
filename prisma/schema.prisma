@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int       @id
+  name        String
+  fatherName  String
+  nid         Int
+  mobiile     Int
+  image       String?
+  dueMonth    Int
+  paidAmount  Int
+  dueAmount   Int?
+  lastPayment DateTime?
+  type        String    @default("shop") //shope,home
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  Shop        Shop?     @relation(fields: [shopId], references: [id])
+  shopId      Int?
+  Home        Home?     @relation(fields: [homeId], references: [id])
+  homeId      Int?
+  Payment     Payment[]
+}
+
+model Admin {
+  id        Int      @id
+  name      String
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Shop {
+  id           Int      @id
+  ratePerMonth Int
+  users        User[]
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+}
+
+model Home {
+  id           Int      @id
+  ratePerMonth Int
+  users        User[]
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+}
+
+model Payment {
+  id        Int       @id
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  amount    Int
+  date      DateTime
+  formDate  DateTime?
+  toDate    DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+}
