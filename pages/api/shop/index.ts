@@ -5,8 +5,10 @@ import prisma from "../../../lib/prisma";
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.get(
     async (req, res) => {
+        console.log("hello");
         
         const shop = await prisma.shop.findMany();
         res.json(shop);
     }
 )
+export default handler;

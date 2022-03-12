@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id          Int       @id
+  id          Int       @id @default(autoincrement())
   name        String
   fatherName  String
   nid         Int
@@ -32,7 +32,7 @@ model User {
 }
 
 model Admin {
-  id        Int      @id
+  id        Int      @id @default(autoincrement())
   name      String
   password  String
   createdAt DateTime @default(now()) @map("created_at")
@@ -40,7 +40,7 @@ model Admin {
 }
 
 model Shop {
-  id           Int      @id
+  id           Int      @id @default(autoincrement())
   ratePerMonth Int
   users        User[]
   createdAt    DateTime @default(now()) @map("created_at")
@@ -48,7 +48,7 @@ model Shop {
 }
 
 model Home {
-  id           Int      @id
+  id           Int      @id @default(autoincrement())
   ratePerMonth Int
   users        User[]
   createdAt    DateTime @default(now()) @map("created_at")
@@ -56,7 +56,7 @@ model Home {
 }
 
 model Payment {
-  id        Int       @id
+  id        Int       @id @default(autoincrement())
   user      User      @relation(fields: [userId], references: [id])
   userId    Int
   amount    Int
