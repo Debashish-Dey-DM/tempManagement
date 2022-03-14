@@ -18,6 +18,8 @@ const CreateShop = () => {
         
     }
     return (
+        <>
+        
         <div>
             <form onSubmit={submitData} className="pt-4">
                 <fieldset disabled>
@@ -32,6 +34,8 @@ const CreateShop = () => {
                 <button type="submit" className="btn btn-primary ">Submit</button>
             </form>
         </div>
+        
+       </> 
     )
 }
 export default CreateShop;
