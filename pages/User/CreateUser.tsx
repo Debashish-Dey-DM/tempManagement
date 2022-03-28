@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import commonStyles from '../../styles/common.module.css'
 import styles from "./CreateUser.module.css";
 const CreateUser = () => {
   const [user, setUser] = useState({
@@ -28,8 +29,8 @@ const CreateUser = () => {
     setUser({ ...user, [name]: value });
   };
   return (
-    <div className={styles.createUserformBG}>
-      <Container className={`${styles.createUserform} pt-3`}>
+    <div className={`${styles.createUserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}>
+      <Container className={`${commonStyles.commonForm} pt-3`}>
         <h3>দোকানদারের নাম ঠিকানা দেন</h3>
         <Form className="py-4" onSubmit={submitData}>
           <Row>
