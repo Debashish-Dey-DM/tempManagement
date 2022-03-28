@@ -1,0 +1,30 @@
+.createUserformBG{
+    background-color: #CFD0D2;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    padding-top: 40px;
+}
+.createUserform{
+    max-width: 1320px;
+    height: 100%;
+    background: white;
+    box-shadow: 0px 0px 5px 1px #636363;
+}
+
+.createUserform input{
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    padding: 12px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: aliceblue;
+}
+
+.createUserform input:focus, .createUserform input:active{
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    background:#e2e2e2
+}

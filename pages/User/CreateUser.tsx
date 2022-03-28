@@ -1,79 +1,79 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import styles from "./CreateUser.module.css";
 const CreateUser = () => {
-    const [user, setUser] = useState({
-        name: "",
-        fatherName: "",
-        nid: "",
-        mobile: "",
-        dueMonth: "",
-    })
-    const submitData =async (e: any) => {
-        e.preventDefault();
-        console.log(user);
-        const res = await axios.post("http://localhost:3000/api/user/createUser", {user});
-        
-    }
-    const handleChange = (e:any) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setUser({...user,[name]:value})
-        
-        
-    }
-    return (
-        <div>
-          <form onSubmit={submitData} className="mt-3">
-            
-            <div className="row mb-4">
-                <div className="col">
-                <div className="form-outline">
-                    <input type="text" name="name" className="form-control" onChange={handleChange} />
-                    <label className="form-label" htmlFor="form6Example1">Name</label>
-                </div>
-                </div>
-                <div className="col">
-                <div className="form-outline">
-                    <input type="text" name="fatherName" className="form-control" onChange={handleChange} />
-                    <label className="form-label" htmlFor="form6Example2">Father Name</label>
-                </div>
-                </div>
-            </div>
-            <div className="row mb-4">
-                <div className="col">
-                <div className="form-outline">
-                    <input type="text" name="mobile" className="form-control" onChange={handleChange} />
-                    <label className="form-label" htmlFor="form6Example1">Phone No:</label>
-                </div>
-                </div>
-                <div className="col">
-                <div className="form-outline">
-                    <input type="text"  name="nid" className="form-control" onChange={handleChange} />
-                    <label className="form-label" htmlFor="form6Example2">NID</label>
-                </div>
-                </div>
-            </div>
+  const [user, setUser] = useState({
+    name: "",
+    fatherName: "",
+    nid: "",
+    mobile: "",
+    dueMonth: "",
+    // ratePerMonth:'',
+    // shopNo:'',
+    // image: "", 
+  });
+  console.log('userState: ', user);
+  const submitData = async (e: any) => {
+    e.preventDefault();
+    console.log("userSubmitted : ", user);
+    const res = await axios.post("http://localhost:3000/api/user/createUser", {
+      user,
+    });
+  };
+  const handleChange = (e: any) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    console.log(name, ' : ', value);
+    setUser({ ...user, [name]: value });
+  };
+  return (
+    <div className={styles.createUserformBG}>
+      <Container className={`${styles.createUserform} pt-3`}>
+        <h3>দোকানদারের নাম ঠিকানা দেন</h3>
+        <Form className="py-4" onSubmit={submitData}>
+          <Row>
+            <Col>
+              <Form.Control type="text" placeholder="নাম" name='name'onBlur={handleChange}/>
+            </Col>
+            <Col>
+              <Form.Control type="text" placeholder="পিতার নাম" name="fatherName" onBlur={handleChange}/>
+            </Col>
+          </Row>
 
-            
-            <div className="form-outline mb-4">
-                <input type="text" name="dueMonth"  className="form-control" onChange={handleChange} />
-                <label className="form-label" htmlFor="form6Example4">Due Month</label>
-            </div>
+          <Row className="my-4">
+            <Col>
+              <Form.Control type="number" placeholder="মোবাইল নাম্বার" name="mobile" onBlur={handleChange}/>
+            </Col>
+            <Col>
+              <Form.Control type="number" placeholder="পরিচয় পত্র নাম্বার" name="nid" onBlur={handleChange}/>
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Col>
+              <Form.Control type="number" placeholder="দোকান নাম্বার" name='shopNo' onBlur={handleChange}/>
+            </Col>
+            <Col>
+              <Form.Control type="number" placeholder="ভাড়ার হার" name='ratePerMonth' onBlur={handleChange}/>
+            </Col>
+          </Row>
 
-            
-            <div className="form-outline mb-4">
-                <input type="number"  className="form-control" /*onChange={handleChange} */ />
-                <label className="form-label" htmlFor="form6Example6">Home Id</label>
-            </div>
+          <Row>
+            <Col>
+              <Form.Control type="number" placeholder="মাস বাকি (Due month)" name="dueMonth"onBlur={handleChange}/>
+            </Col>
+            <Col>
+              <Form.Control type="file" placeholder="ছবি" name='image' onBlur={handleChange}/>
+            </Col>
+            <Col>
+              <Button type="submit"> Submit</Button>
+            </Col>
+          </Row>
+        </Form>
 
-            
-            <div className="form-outline mb-4">
-                <input type="number"  className="form-control" /*onChange={handleChange} */ />
-                <label className="form-label" htmlFor="form6Example6">Shop Id</label>
-            </div>          
-            <button type="submit" className="btn btn-primary btn-block mb-4">Place order</button>
-        </form>
-        </div>
-    )
-}
+        {/* eikhane CreateUser.txt er code */}
+      </Container>
+    </div>
+  );
+};
 export default CreateUser;
