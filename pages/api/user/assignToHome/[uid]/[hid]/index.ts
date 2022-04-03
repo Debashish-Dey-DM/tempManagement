@@ -9,8 +9,8 @@ handler.post(
         const hid = req.query.hid; 
         
         const home = await prisma.home.update({
-            where: { id: Number(hid) },
-            data:{users:{connect:{id:Number(uid)}}}
+            where: { home_id: Number(hid) },
+            data:{users:{connect:{user_id:Number(uid)}}}
         })
         res.json(home);
         

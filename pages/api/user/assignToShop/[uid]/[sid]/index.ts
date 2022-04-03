@@ -9,8 +9,8 @@ handler.post(
         const sid = req.query.sid; 
         
         const shop = await prisma.shop.update({
-            where: { id: Number(sid) },
-            data:{users:{connect:{id:Number(uid)}}}
+            where: { shop_id: Number(sid) },
+            data:{users:{connect:{user_id:Number(uid)}}}
         })
         res.json(shop);
         

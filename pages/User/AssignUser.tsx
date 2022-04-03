@@ -68,7 +68,7 @@ const AssignUser = () => {
                     <select onChange={handleShop} name="user" className="form-select" aria-label="Default select example">
                         <option value={0}>User</option>
                             {users.map((u) => {
-                                return <option value={u.id} key={u.id}>{u.id }  :::  {u.name}</option>
+                                return <option value={u.user_id} key={u.user_id}>{u.user_id }  :::  {u.name}</option>
                             })}
                         
                     </select>
@@ -77,7 +77,7 @@ const AssignUser = () => {
                     <select onChange={handleShop} name="shop" className="form-select" aria-label="Default select example">
                         <option value={0}>Shop</option>
                         {shops.map((s) => {
-                                return <option value={s.id} key={s.id}>{s.id }  </option>
+                                return <option value={s.shop_id} key={s.shop_id}>{s.shop_id }  </option>
                             })}
                     </select>
                 </div>
@@ -92,7 +92,7 @@ const AssignUser = () => {
                     <select onChange={handleHome} name="user" className="form-select" aria-label="Default select example">
                         <option value={0}>User</option>
                         {users.map((u) => {
-                                return <option value={u.id} key={u.id}>{u.id }  :::  {u.name}</option>
+                                return <option value={u.user_id} key={u.user_id}>{u.user_id }  :::  {u.name}</option>
                         })}
                     </select>
                 </div>
@@ -100,7 +100,7 @@ const AssignUser = () => {
                     <select onChange={handleHome} name="home" className="form-select" aria-label="Default select example">
                         <option value={0} >Home</option>
                         {homes.map((h) => {
-                                return <option value={h.id} key={h.id}>{h.id } </option>
+                                return <option value={h.home_id} key={h.home_id}>{h.home_id } </option>
                             })}
                     </select>
                 </div>

@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
+  user_id     Int       @id @default(autoincrement())
   name        String
   fatherName  String
   nid         Int
@@ -24,9 +24,9 @@ model User {
   type        String    @default("shop") //shope,home
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
-  Shop        Shop?     @relation(fields: [shopId], references: [id])
+  Shop        Shop?     @relation(fields: [shopId], references: [shop_id])
   shopId      Int?
-  Home        Home?     @relation(fields: [homeId], references: [id])
+  Home        Home?     @relation(fields: [homeId], references: [home_id])
   homeId      Int?
   Payment     Payment[]
 }
@@ -40,7 +40,7 @@ model Admin {
 }
 
 model Shop {
-  id           Int      @id @default(autoincrement())
+  shop_id      Int      @id @default(autoincrement())
   ratePerMonth Int
   users        User[]
   createdAt    DateTime @default(now()) @map("created_at")
@@ -48,7 +48,7 @@ model Shop {
 }
 
 model Home {
-  id           Int      @id @default(autoincrement())
+  home_id      Int      @id @default(autoincrement())
   ratePerMonth Int
   users        User[]
   createdAt    DateTime @default(now()) @map("created_at")
@@ -57,7 +57,7 @@ model Home {
 
 model Payment {
   id        Int       @id @default(autoincrement())
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [user_id])
   userId    Int
   amount    Int
   date      DateTime
@@ -65,5 +65,4 @@ model Payment {
   toDate    DateTime?
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
-
 }

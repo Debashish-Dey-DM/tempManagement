@@ -7,7 +7,10 @@ handler.get(
     async (req, res) => {
         const home = await prisma.home.findMany();
         const newId = home.length + 1;
+        console.log("hello");
+        
         res.json(newId);
+
         
     }
 )
