@@ -22,10 +22,10 @@ const Dashboard = () => {
             </Dropdown.Menu>
           </Dropdown>
 
-          <Link href="/">
+          <Link href="/User/ShopOwner">
             <a> Dokan varatiyar talika</a>
           </Link>
-          <Link href="/">Abashon varatiyar talika</Link>
+          <Link href="/User/HomeOwner">Abashon varatiyar talika</Link>
           {/* --------- dropdown for income ----------- */}
           <Dropdown className="my-1">
             <Dropdown.Toggle id="dropdown-basic">
