@@ -5,12 +5,15 @@ import prisma from "../../../../lib/prisma";
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.get(
     async (req, res) => {
-        
-        
-        const user = await prisma.user.findMany({
-            include:{Shop: true,Home: true}
+        const paymentType = req.query.type as string;
+        const getPayment = await prisma.payment.findMany({
+            where: {
+                status: "Income",
+                type: paymentType
+            }
         });
-        return res.json(user);
+            
+        return res.json(getPayment);
         
     }
 )
