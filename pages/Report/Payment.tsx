@@ -13,6 +13,8 @@ const Payment = () => {
         
         const result = await axios.get(`http://localhost:3000/api/report/payments/${dates.from}/${dates.to}`,).then(res => {
             setPayments(res.data);
+            console.log(res.data);
+            
         })
 
     }
@@ -41,6 +43,7 @@ const Payment = () => {
                             <h5><button type="submit">Generate</button></h5>
                             {payments?.map((p, i) => {
                                 return (
+                                    // eslint-disable-next-line react/jsx-key
                                     <h5>Hello</h5>
                                 )
                             })}

@@ -1,9 +1,11 @@
+import { Shop } from "@prisma/client";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import commonStyles from '../../styles/common.module.css'
 import styles from "./CreateUser.module.css";
 const CreateUser = () => {
+  const [shop,setShop] = useState<Shop[]>()
   const [user, setUser] = useState({
     name: "",
     fatherName: "",
@@ -28,6 +30,14 @@ const CreateUser = () => {
     console.log(name, ' : ', value);
     setUser({ ...user, [name]: value });
   };
+  const mount = async () => {
+    await axios.get("http://localhost:3000/api/shop/getAllShop").then((res) => {
+      setShop(res.data);
+    })
+  }
+  useEffect(() => { 
+    mount()
+  },[])
   return (
     <div className={`${styles.createUserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}>
       <Container className={`${commonStyles.commonForm} pt-3`}>
@@ -52,7 +62,17 @@ const CreateUser = () => {
           </Row>
           <Row className="mb-4">
             <Col>
-              <Form.Control type="number" placeholder="দোকান নাম্বার" name='shopNo' onBlur={handleChange}/>
+              {/* <Form.Control type="number" placeholder="দোকান নাম্বার" name='shopNo' onBlur={handleChange}/> */}
+              <select name="" id="">
+                <option value="">দোকান নাম্বার</option>
+                {shop?.map((s: Shop,i) => {
+                  return (
+                    <>
+                      <option value="">{s.shop_id}</option>
+                    </>
+                  )
+                })}
+              </select>
             </Col>
             <Col>
               <Form.Control type="number" placeholder="ভাড়ার হার" name='ratePerMonth' onBlur={handleChange}/>
