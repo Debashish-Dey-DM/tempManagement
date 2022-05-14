@@ -32,8 +32,8 @@ const Dashboard = () => {
               Payment / aay
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/ShoshanDevDaho"}>ShoshanDevDaho</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/ShoshanDevShot"}>ShoshanDevShot</Dropdown.Item>
               <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
               <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
               <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
@@ -59,7 +59,7 @@ const Dashboard = () => {
             </Dropdown.Menu>
           </Dropdown>
 
-          <Link href="/">
+          <Link href={"/Report/Payment"}>
             <a> Report</a>
           </Link>
           <Link href="/">
