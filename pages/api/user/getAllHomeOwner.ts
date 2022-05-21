@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../lib/prisma";
 //import controller
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.get(
@@ -8,8 +8,8 @@ handler.get(
         
         
         const user = await prisma.user.findMany({
-            where:{type:"Shop"},
-            include:{Shop: true}
+            where:{type:"Home"},
+            include:{Home: true}
         });
         return res.json(user);
         

@@ -1,28 +1,31 @@
-import { Shop } from "@prisma/client";
+import { Home, Shop } from "@prisma/client";
 import axios from "axios";
 import React, { useState,useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import commonStyles from '../../styles/common.module.css'
 import styles from "./CreateUser.module.css";
 const CreateUser = () => {
-  const [shop,setShop] = useState<Shop[]>()
+  const [shop, setShop] = useState([])
+  const [home,setHome] = useState([])
   const [user, setUser] = useState({
     name: "",
     fatherName: "",
     nid: "",
     mobile: "",
     dueMonth: "",
+    type: "",
+    typeId: "",
     // ratePerMonth:'',
     // shopNo:'',
     // image: "", 
   });
-  console.log('userState: ', user);
+  const [userType,setUserType]=useState("");
   const submitData = async (e: any) => {
     e.preventDefault();
     console.log("userSubmitted : ", user);
-    const res = await axios.post("http://localhost:3000/api/user/createUser", {
-      user,
-    });
+    // const res = await axios.post("http://localhost:3000/api/user/createUser", {
+    //   user,
+    // });
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -30,6 +33,20 @@ const CreateUser = () => {
     console.log(name, ' : ', value);
     setUser({ ...user, [name]: value });
   };
+  const getHome = async () => {
+    setUserType("Home");
+
+  }
+  const getShop = async () => {
+  
+    await axios.get("http://localhost:3000/api/shop/getAllShopIds").then((res) => {
+      // setShop(res.data);
+      console.log(res.data);
+      
+      setUserType("Shop");
+    })
+
+  }
   const mount = async () => {
     await axios.get("http://localhost:3000/api/shop/getAllShop").then((res) => {
       setShop(res.data);
@@ -73,9 +90,10 @@ const CreateUser = () => {
                   )
                 })}
               </select>
-            </Col>
-            <Col>
-              <Form.Control type="number" placeholder="ভাড়ার হার" name='ratePerMonth' onBlur={handleChange}/>
+              
+              <button onClick={getHome}>Home</button>
+              <button onClick={getShop}>Shop</button>
+              {(userType=="")?<h5>null</h5>:(userType=="Shop")?<h5>Shop</h5>:(userType=="Home")?<h5>Home</h5>:<h5>null</h5>}
             </Col>
           </Row>
 
