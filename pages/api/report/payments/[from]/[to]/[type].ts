@@ -1,7 +1,7 @@
 import { Payment } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
-import prisma from "../../../../../lib/prisma";
+import prisma from "../../../../../../lib/prisma";
 //import controller
 interface OBJ{
     payments: Payment[],
@@ -13,6 +13,7 @@ handler.get(
     async (req, res) => {
         const from = req.query.from as string;
         const to = req.query.to as string;
+        const type = req.query.type as string;
         let newArr: number[] = [];
         console.log(from, to);
         const getPaymentByDate = await prisma.payment.findMany({
@@ -21,7 +22,8 @@ handler.get(
                     gte: new Date(from),
                     lte: new Date(to),
                 },
-                status:"Income",
+                status: "Income",
+                type: type
           }
         })
         getPaymentByDate?.map((item: Payment) => {

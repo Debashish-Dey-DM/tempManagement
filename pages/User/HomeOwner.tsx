@@ -8,7 +8,7 @@ interface UserExtended extends User{
 const ShopOwner = () => {
     const [user, setUser] = useState<UserExtended[]>();
     const mount =async () => {
-        const result = await axios.get(`http://localhost:3000/api/user/getAllUser`);
+        const result = await axios.get(`http://localhost:3000/api/user/getAllHomeOwner`);
         setUser(result.data);
         
         
