@@ -12,6 +12,8 @@ handler.get(
             include:{Shop: true}
         });
         return res.json(user);
+        console.log("hi");
+        
         
     }
 )
