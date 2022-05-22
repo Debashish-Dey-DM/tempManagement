@@ -13,19 +13,26 @@ const CreateUser = () => {
     nid: "",
     mobile: "",
     dueMonth: "",
-    type: "",
     typeId: "",
-    // ratePerMonth:'',
-    // shopNo:'',
-    // image: "", 
   });
   const [userType,setUserType]=useState("");
   const submitData = async (e: any) => {
     e.preventDefault();
+    const name = user.name.toString();
+    const fatherName = user.fatherName.toString();
+    const nid = user.nid.toString();
+    const mobile = user.mobile.toString();
+    const dueMonth = user.dueMonth.toString();
+    const typeId = user.typeId.toString();
     console.log("userSubmitted : ", user);
-    // const res = await axios.post("http://localhost:3000/api/user/createUser", {
-    //   user,
-    // });
+    console.log("userType : ", userType);
+    const res = await axios.post("http://localhost:3000/api/user/createUser", {
+      name,fatherName,nid,mobile,dueMonth,userType,typeId
+    });
+    if (res) {
+     
+    }
+    
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -33,24 +40,20 @@ const CreateUser = () => {
     console.log(name, ' : ', value);
     setUser({ ...user, [name]: value });
   };
-  const getHome = async () => {
-    setUserType("Home");
-
-  }
-  const getShop = async () => {
-  
-    await axios.get("http://localhost:3000/api/shop/getAllShopIds").then((res) => {
-      // setShop(res.data);
-      console.log(res.data);
-      
-      setUserType("Shop");
-    })
-
-  }
   const mount = async () => {
     await axios.get("http://localhost:3000/api/shop/getAllShop").then((res) => {
       setShop(res.data);
     })
+  }
+  const typeChange = (e: any) => {
+    if (e.target.value == "Home") {
+       setUserType("Home");
+
+    }
+    else if (e.target.value == "Shop") { 
+      setUserType("Shop");
+    }
+
   }
   useEffect(() => { 
     mount()
@@ -79,21 +82,16 @@ const CreateUser = () => {
           </Row>
           <Row className="mb-4">
             <Col>
-              {/* <Form.Control type="number" placeholder="দোকান নাম্বার" name='shopNo' onBlur={handleChange}/> */}
-              <select name="" id="">
-                <option value="">দোকান নাম্বার</option>
-                {shop?.map((s: Shop,i) => {
-                  return (
-                    <>
-                      <option value="">{s.shop_id}</option>
-                    </>
-                  )
-                })}
-              </select>
               
-              <button onClick={getHome}>Home</button>
-              <button onClick={getShop}>Shop</button>
-              {(userType=="")?<h5>null</h5>:(userType=="Shop")?<h5>Shop</h5>:(userType=="Home")?<h5>Home</h5>:<h5>null</h5>}
+              <select name="type" onChange={typeChange}>
+                <option defaultChecked>Select</option>
+                <option value="Shop">Dokan</option>
+                <option value="Home">Home</option>
+              </select>
+              {(userType == "") ? <h5> </h5> : (userType == "Shop") ?
+                  <input type="text" placeholder="Shop" name="typeId" onChange={handleChange} /> : (userType == "Home") ?
+                  <input type="text" placeholder="Home" name="typeId" onChange={handleChange} /> :
+                  <h5> </h5>}
             </Col>
           </Row>
 
