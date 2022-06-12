@@ -8,12 +8,9 @@ handler.get(
         
         
         const user = await prisma.user.findMany({
-            where:{type:"Shop"},
-            include:{Shop: true}
+            include:{Shop: true,Home: true}
         });
         return res.json(user);
-        console.log("hi");
-        
         
     }
 )

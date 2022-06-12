@@ -28,6 +28,8 @@ const ShopOwner = () => {
                     <th scope="col">Mobile</th>
                     <th scope="col">NID</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Due Month</th>
+                    <th scope="col">Action</th>
                     
                     </tr>
                 </thead>
@@ -43,7 +45,8 @@ const ShopOwner = () => {
                             <td>{u?.mobiile}</td>
                             <td>{u?.nid}</td>
                             <td>{u?.image}</td>
-                            
+                            <td>{u?.dueMonth}</td>
+                            <td><button>Edit</button></td>
                             </tr>
                         );
                     })}
