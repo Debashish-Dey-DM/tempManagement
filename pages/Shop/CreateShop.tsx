@@ -16,13 +16,13 @@ const CreateShop = () => {
     e.preventDefault();
     const rate = e.target?.[2]?.value;
     const res = await axios.post("http://localhost:3000/api/shop/createShop", {
-      rate,
+      rate
     });
     console.log(res.data);
   };
   return (
     <div className={`${commonStyles.common} pt-5`}>
-      <Container className={`${commonStyles.commonForm} pt-3`}>
+      {/* <Container className={`${commonStyles.commonForm} pt-3`}>
         <h3>দোকান তৈরী করেন</h3>
         <Form className="py-4" onSubmit={submitData}>
           <Row className="my-3">
@@ -32,16 +32,19 @@ const CreateShop = () => {
           </Row>
           <Row>
             <Col>
-              <Form.Control type="text" placeholder="Rate Per Month" name="name" />
+             <div className="form-group">
+                    <label >Rate Per Month</label>
+                    <input type="text" className="form-control"  placeholder=""/>
+                </div>
             </Col>
           </Row>
           <Button className="mt-3" type="submit">
             Submit
           </Button>
         </Form>
-      </Container>
+      </Container> */}
 
-      {/* <div>
+      <div>
             <form onSubmit={submitData} className="pt-4">
                 <fieldset disabled>
                     <label >ID</label>
@@ -54,7 +57,7 @@ const CreateShop = () => {
                 <br />
                 <button type="submit" className="btn btn-primary ">Submit</button>
             </form>
-        </div> */}
+        </div>
     </div>
   );
 };

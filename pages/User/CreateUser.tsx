@@ -30,7 +30,18 @@ const CreateUser = () => {
       name,fatherName,nid,mobile,dueMonth,userType,typeId
     });
     if (res) {
-     
+      if(res.status===200){
+        alert("user created");
+      }
+      else if(res.status===400){
+        alert("Error Occured, Contact with Developer");
+      }
+      else if (res.status === 202) {
+        alert("user already assigned");
+      }
+      else if(res.status===203){
+        alert("Home / Shop Id Not created Yet");
+      }
     }
     
   };
