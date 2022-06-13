@@ -16,7 +16,7 @@ const EditUser = () => {
   const router = useRouter();
   const id = router.query.id;
   console.log(id);
-
+  
   const getUserData = async () => {
     setState(true);
     console.log("id : ", id);
@@ -43,29 +43,18 @@ const EditUser = () => {
       : user?.mobiile.toString();
     const dueMonth = newuser.dueMonth
       ? newuser.dueMonth.toString()
-      : user?.dueMonth.toString();
-    const userId =user?.user_id.toString();
-    const result = await axios.post(
-      `http://localhost:3000/api/user/updateUser`,
-      {userId,
-        name,
-        fatherName,
-        nid,
-        mobile,
-        dueMonth,
-      }
-    );
+          : user?.dueMonth.toString();
+     
   };
   return (
     <div>
       {state ? (
         <>
           <h1>Hello {user?.name}</h1>
-          <form onSubmit={submitData}>
+          <form action="">
             <label>Name</label>
             <input
               type="text"
-              name="name"
               placeholder={user?.name}
               onChange={handleChange}
             />
@@ -73,7 +62,6 @@ const EditUser = () => {
             <label>Fathers Name</label>
             <input
               type="text"
-              name="fatherName"
               placeholder={user?.fatherName}
               onChange={handleChange}
             />
@@ -81,7 +69,6 @@ const EditUser = () => {
             <label>Mobile</label>
             <input
               type="text"
-              name="mobile"
               placeholder={user?.mobiile + ""}
               onChange={handleChange}
             />
@@ -89,7 +76,6 @@ const EditUser = () => {
             <label>NID</label>
             <input
               type="text"
-              name="nid"
               placeholder={user?.nid + ""}
               onChange={handleChange}
             />
@@ -97,7 +83,6 @@ const EditUser = () => {
             <label>Due Month</label>
             <input
               type="text"
-              name="dueMonth"
               placeholder={user?.dueMonth + ""}
               onChange={handleChange}
             />

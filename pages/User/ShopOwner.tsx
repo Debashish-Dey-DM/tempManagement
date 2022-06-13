@@ -2,10 +2,12 @@ import { Shop, User } from "@prisma/client";
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 interface UserExtended extends User{
     Shop: Shop
 }
 const ShopOwner = () => {
+  const router = useRouter();
     const [user, setUser] = useState<UserExtended[]>();
     const mount =async () => {
         const result = await axios.get(`http://localhost:3000/api/user/getAllShopOwner`);
@@ -43,6 +45,24 @@ const ShopOwner = () => {
                   <td>{u?.nid}</td>
                   <td>{u?.image}</td>
                   <td>{u?.dueMonth}</td>
+                  <td>
+                    <button
+                      onClick={() =>
+                        router.push(`/User/EditUser/${u?.user_id}`)
+                      }
+                    >
+                      Edit
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() =>
+                        router.push(`/Payments/Shop/${u?.user_id}`)
+                      }
+                    >
+                      Payment
+                    </button>
+                  </td>
                 </tr>
               );
             })}
