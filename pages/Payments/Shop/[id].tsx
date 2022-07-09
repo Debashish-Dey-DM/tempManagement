@@ -1,7 +1,9 @@
 import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 const ShopPayments = () => {
   const [state, setState] = useState(false);
@@ -25,7 +27,7 @@ const ShopPayments = () => {
     const type = "shopPayment";
     const amount = payment.amount.toString();
     const newDate = new Date(payment.date);
-    const date = newDate.toISOString();
+    const date = newDate?.toISOString();
 
     const res = await axios.post(
       `http://localhost:3000/api/Payments/homePayment`,
@@ -67,11 +69,17 @@ const ShopPayments = () => {
           </div>
         </>
       ) : (
-        <>
-          <h1>Are you sure</h1>
-          <button onClick={getUser}>Yes</button>
-          <button>No</button>
-        </>
+        <div className="d-flex align-items-center justify-content-center mt-5">
+          <div className="text-center">
+            <h1 className="mb-4">Want to Pay?</h1>
+            <Button onClick={getUser} className="me-2" variant="danger">
+              Yes
+            </Button>
+            <Button variant="success" onClick={() => router.back()}>
+              No
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );

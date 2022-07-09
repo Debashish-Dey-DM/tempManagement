@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Alert } from "react-bootstrap";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
-import styles from "./CreateUser.module.css";
 const CreateUser = () => {
   const [shop, setShop] = useState([]);
   const [home, setHome] = useState([]);
+  const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({
     name: "",
     fatherName: "",
@@ -15,6 +16,21 @@ const CreateUser = () => {
     typeId: "",
   });
   const [userType, setUserType] = useState("");
+  const [typeName, setTypeName] = useState({
+    name : '',
+    id: 0
+  });
+
+  const g = localStorage.getItem('shop')
+  // console.log(localStorage.getItem("shop"));
+
+  // if(localStorage.getItem("shop")){
+  //   const info = {...typeName}
+  //   info.name = 'shop'
+  //   info.id = localStorage.getItem("shop");
+  //   setTypeName(info)
+  // }
+
   const submitData = async (e: any) => {
     e.preventDefault();
     const name = user.name.toString();
@@ -36,13 +52,13 @@ const CreateUser = () => {
     });
     if (res) {
       if (res.status === 200) {
-        alert("user created");
+        setSuccess(true)
       } else if (res.status === 400) {
         alert("Error Occured, Contact with Developer");
       } else if (res.status === 202) {
-        alert("user already assigned");
+        alert("এই দোকান/ঘর এর মালিক রয়েছে... (user already assigned)");
       } else if (res.status === 203) {
-        alert("Home / Shop Id Not created Yet");
+        alert("দোকান/ঘর তৈরী করা হয়নি... (Home/Shop Id Not created Yet)");
       }
     }
   };
@@ -69,13 +85,14 @@ const CreateUser = () => {
   }, []);
   return (
     <div
-      className={`${styles.createUserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}
+      className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}
     >
       <Container className={`${commonStyles.commonForm} pt-3`}>
-        <h3>দোকানদারের নাম ঠিকানা দেন</h3>
+        <h3>দোকান/ঘর মালিকের তথ্য - </h3>
+        {success ? <Alert variant='success'>মালিকের তথ্য সফলভাবে তৈরী হয়েছে...</Alert> : ''}
         <Form className="py-4" onSubmit={submitData}>
           <Row>
-            <Col>
+            <Col md={6}>
               <Form.Control
                 type="text"
                 placeholder="নাম"
@@ -83,7 +100,7 @@ const CreateUser = () => {
                 onBlur={handleChange}
               />
             </Col>
-            <Col>
+            <Col md={6}>
               <Form.Control
                 type="text"
                 placeholder="পিতার নাম"
@@ -94,7 +111,7 @@ const CreateUser = () => {
           </Row>
 
           <Row className="my-4">
-            <Col>
+            <Col md={6}>
               <Form.Control
                 type="number"
                 placeholder="মোবাইল নাম্বার"
@@ -102,7 +119,7 @@ const CreateUser = () => {
                 onBlur={handleChange}
               />
             </Col>
-            <Col>
+            <Col md={6}>
               <Form.Control
                 type="number"
                 placeholder="পরিচয় পত্র নাম্বার"
@@ -112,7 +129,7 @@ const CreateUser = () => {
             </Col>
           </Row>
           <Row className="mb-4">
-            <Col>
+          <Col md={6}>
               <select name="type" onChange={typeChange}>
                 <option defaultChecked>ধরন (দোকান / ঘর)</option>
                 <option value="Shop">দোকান</option>
@@ -120,7 +137,7 @@ const CreateUser = () => {
               </select>
               
             </Col>
-            <Col>
+            <Col md={6}>
               <Form.Control
                 type="number"
                 placeholder="মাস বাকি (Due month)"
@@ -136,7 +153,7 @@ const CreateUser = () => {
                 ''
               ) : userType == "Shop" ? (
                 <input
-                className = {`${styles.shopOrHomeNo}`}
+                // className = {`${styles.shopOrHomeNo}`}
                   type="text"
                   placeholder="দোকান নং"
                   name="typeId"
@@ -144,7 +161,7 @@ const CreateUser = () => {
                 />
               ) : userType == "Home" ? (
                 <input
-                className = {`${styles.shopOrHomeNo}`}
+                // className = {`${styles.shopOrHomeNo}`}
                   type="text"
                   placeholder="ঘর নং"
                   name="typeId"
@@ -162,6 +179,7 @@ const CreateUser = () => {
                 onBlur={handleChange}
               />
             </Col>
+            
             <Col md={1}>
               <Button className='mt-1' type="submit"> Submit</Button>
             </Col>

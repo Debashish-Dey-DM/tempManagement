@@ -6,3 +6,7 @@
     overflow-y: scroll;
 
 }
+
+.minHeight35{
+    min-height: 35vh !important;
+}

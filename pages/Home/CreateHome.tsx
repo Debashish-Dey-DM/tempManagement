@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
 
@@ -21,20 +21,21 @@ const CreateHome = () => {
     console.log(res.data);
   };
   return (
-    <div className={` ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}>
-          <Container className={`${commonStyles.commonForm} pt-3`}>
-              <h5>Ghor Toiri Korun</h5>
+    <div className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}>
+      <Container className={`${commonStyles.commonForm} pt-3`}>
+        <h5>ঘর তৈরি - </h5>
         <Form className="py-4" onSubmit={submitData}>
-          <label className="ms-3">ID</label>
+        <label className="ms-3">আইডি / ID</label>
           <Form.Control
             type="number"
             placeholder={newId}
+            className = 'mt-2'
             name="name"
             disabled
           />
           <br />
-          <label className="ms-3">Rate Per Month</label>
-          <Form.Control type="number" placeholder="(only number)" name="name" />
+          <label className="ms-3">মাসিক ভাড়া / Rate Per Month</label>
+          <Form.Control type="number" placeholder="(only number)" name="name" className = 'mt-2' />
           <br />
           <Button>Submit</Button>
         </Form>

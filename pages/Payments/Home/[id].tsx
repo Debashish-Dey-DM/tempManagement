@@ -2,6 +2,7 @@ import { User } from '@prisma/client';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
+import { Button } from 'react-bootstrap';
 
 const HomePayments = () => {
     const [state,setState] = useState(false);
@@ -93,11 +94,15 @@ const HomePayments = () => {
             </div>
           </>
         ) : (
-          <>
-            <h1>Are you sure</h1>
-            <button onClick={getUser}>Yes</button>
-            <button>No</button>
-          </>
+          <div className="d-flex align-items-center justify-content-center mt-5">
+          <div className="text-center">
+            <h1 className="mb-4">Want to Home Data? </h1>
+            <Button onClick={getUser} className="me-2" variant="danger">
+              Yes
+            </Button>
+            <Button variant="success" onClick={() => router.back()}>No</Button>
+          </div>
+        </div>
         )}
       </div>
     );
