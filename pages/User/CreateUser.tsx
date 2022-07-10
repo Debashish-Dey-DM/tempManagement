@@ -4,8 +4,8 @@ import { Alert } from "react-bootstrap";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
 const CreateUser = () => {
-  const [shop, setShop] = useState([]);
-  const [home, setHome] = useState([]);
+  const [shopID, setShopID] = useState <Number>();
+  const [homeID, setHomeID] = useState <Number>();
   const [success, setSuccess] = useState(false);
   const [user, setUser] = useState({
     name: "",
@@ -21,7 +21,7 @@ const CreateUser = () => {
     id: 0
   });
 
-  const g = localStorage.getItem('shop')
+  const g = 6
   // console.log(localStorage.getItem("shop"));
 
   // if(localStorage.getItem("shop")){
@@ -69,8 +69,11 @@ const CreateUser = () => {
     setUser({ ...user, [name]: value });
   };
   const mount = async () => {
-    await axios.get("http://localhost:3000/api/shop/getAllShop").then((res) => {
-      setShop(res.data);
+    await axios.get("http://localhost:3000/api/shop/unAssignedShop").then((res) => {
+      setShopID(res.data);
+    });
+    await axios.get("http://localhost:3000/api/home/unAssignedHome").then((res) => { 
+      setHomeID(res.data);
     });
   };
   const typeChange = (e: any) => {
@@ -155,7 +158,7 @@ const CreateUser = () => {
                 <input
                 // className = {`${styles.shopOrHomeNo}`}
                   type="text"
-                  placeholder="দোকান নং"
+                    placeholder={`${shopID} DOKAN NONG` }
                   name="typeId"
                   onChange={handleChange}
                 />
@@ -163,7 +166,7 @@ const CreateUser = () => {
                 <input
                 // className = {`${styles.shopOrHomeNo}`}
                   type="text"
-                  placeholder="ঘর নং"
+                  placeholder={`${homeID} ঘর নং`}
                   name="typeId"
                   onChange={handleChange}
                 />

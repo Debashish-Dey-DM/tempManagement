@@ -1,10 +1,12 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
 
 const CreateHome = () => {
   const [newId, setNewId] = useState<string | undefined>();
+  const router = useRouter();
   const mount = async () => {
     const res = await axios.get("http://localhost:3000/api/home/GetNewHomeId");
     setNewId(res.data);
@@ -19,6 +21,7 @@ const CreateHome = () => {
       rate,
     });
     console.log(res.data);
+    router.push('/User/CreateUser');
   };
   return (
     <div className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}>
@@ -37,7 +40,7 @@ const CreateHome = () => {
           <label className="ms-3">মাসিক ভাড়া / Rate Per Month</label>
           <Form.Control type="number" placeholder="(only number)" name="name" className = 'mt-2' />
           <br />
-          <Button>Submit</Button>
+          <Button type="submit">Submit</Button>
         </Form>
       </Container>
 

@@ -1,15 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import prisma from "../../../../lib/prisma";
+import { Payment, User } from "@prisma/client";
 // import Payment from "../../../../../"
 //import controller
+interface OBJ {
+  payments: Payment[],
+  user: User | null,
+}
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.get(async (req, res) => {
   const userID = req.query.id as string;
-  const userPayment = {
-    payment: payment,
-    user: User,
-  };
+  
   const getPayment = await prisma.payment.findMany({
     where: {
       status: "Income",
@@ -21,7 +23,12 @@ handler.get(async (req, res) => {
       user_id: Number(userID),
     },
   });
+  const paymentHistory: OBJ = {
+    payments: getPayment,
+    user: getUser
+  }
+  
 
-  return res.json(getPayment);
+  return res.json(paymentHistory);
 });
 export default handler;
