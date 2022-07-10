@@ -1,18 +1,22 @@
-import styles from './index.module.css'
-import 'bootstrap/dist/css/bootstrap.css'
-import Dashboard from '../Components/Dashboard'
-import type { AppProps } from 'next/app'
-import { Col, Container, Row } from 'react-bootstrap'
+import "bootstrap/dist/css/bootstrap.css";
+import type { AppProps } from "next/app";
+import { Col, Container, Row } from "react-bootstrap";
+import Dashboard from "../Components/Dashboard";
+import styles from "./index.module.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Container fluid className='py-0'>
+    <Container fluid className="py-0">
       <Row>
-        <Col md={2} className={`${styles.leftDashboardPart} bg-secondary`}><Dashboard/></Col>
-        <Col md={10} className="ps-0"><Component {...pageProps} /></Col>
+        <Col md={2} className={`${styles.leftDashboardPart} bg-secondary`}>
+          <Dashboard />
+        </Col>
+        <Col md={10} className="ps-0">
+          <Component {...pageProps} />
+        </Col>
       </Row>
     </Container>
-    )
+  );
 }
 
-export default MyApp
+export default MyApp;
