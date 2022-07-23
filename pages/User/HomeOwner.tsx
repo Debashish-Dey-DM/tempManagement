@@ -3,6 +3,7 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { Button } from "react-bootstrap";
 interface UserExtended extends User{
     Home: Home
 }
@@ -31,7 +32,8 @@ const ShopOwner = () => {
                     <th scope="col">NID</th>
                     <th scope="col">Image</th>
                     <th scope="col">Due Month</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Payment</th>
                     
                     </tr>
                 </thead>
@@ -48,23 +50,23 @@ const ShopOwner = () => {
                             <td>{u?.image}</td>
                             <td>{u?.dueMonth}</td>
                             <td>
-                              <button
+                              <Button variant="dark"
                                 onClick={() =>
                                   router.push(`/User/EditUser/${u?.user_id}`)
                                 }
                               >
                                 Edit
-                              </button>
+                              </Button>
                             </td>
             
                             <td>
-                              <button
+                              <Button variant="info"
                                 onClick={() =>
                                   router.push(`/Payments/Home/${u?.user_id}`)
                                 }
                               >
                                 Payment
-                              </button>
+                              </Button>
                             </td>
                           </tr>
                         );

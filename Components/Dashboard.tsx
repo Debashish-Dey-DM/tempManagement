@@ -59,9 +59,9 @@ const Dashboard = () => {
             </Dropdown.Menu>
           </Dropdown>
 
-          <Link href={"/Report/Payment"}>
-            <a> Report</a>
-          </Link>
+          <Dropdown.Item href={"/Report/Payment"}>
+             Report
+          </Dropdown.Item>
           <Link href="/">
             <a> User </a>
           </Link>

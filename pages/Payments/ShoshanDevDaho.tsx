@@ -1,9 +1,10 @@
 import { Payment } from "@prisma/client";
 import axios from "axios";
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from "react";
 import styles from "./ShoshanDevDaho.module.css";
 import commonStyles from "../../styles/common.module.css";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 
 const ShoshanDevDaho = () => {
   const [payment, setPayment] = useState<Payment[]>();
@@ -13,6 +14,9 @@ const ShoshanDevDaho = () => {
     date: "",
     amount: "",
   });
+
+  const router = useRouter();
+
   const mount = async () => {
     await axios
       .get("http://localhost:3000/api/Payments/getPayments/ShoshanDevDaho")
@@ -45,6 +49,8 @@ const ShoshanDevDaho = () => {
         console.log(err);
       });
     mount();
+
+    router.reload()
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -67,13 +73,12 @@ const ShoshanDevDaho = () => {
     console.log(sum);
   };
   return (
-    <div className={`${commonStyles.common} ${commonStyles.bgLightGrey}`}>
-      <h1>Shoshan Dev Daho</h1>
-
+    <div className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}>
       <Container
-        className={`${commonStyles.commonForm} ${styles.tblData} py-3`}
+        className={`${commonStyles.commonForm} ${styles.minHeight35} py-3`}
       >
-        <div className="row">
+        <h3>Shoshan Dev Daho</h3>
+        <Row className="row">
           <div className="col-lg-5 col-md-12">
             <form onSubmit={handleSubmit} className="position-fixed ">
               <div>
@@ -84,6 +89,7 @@ const ShoshanDevDaho = () => {
                     type="text"
                     placeholder="Amount"
                     name="amount"
+                    id="amount"
                     className="form-control"
                     onChange={handleChange}
                   />
@@ -94,17 +100,18 @@ const ShoshanDevDaho = () => {
                     type="Date"
                     placeholder="Dates"
                     name="date"
+                    id="date"
                     className="form-control"
                     onChange={handleChange}
                   />
                 </div>
                 {/* myCode */}
-
                 <Button type="submit">Submit</Button>
               </div>
             </form>
           </div>
-          <div className="col-lg-7 col-md-12">
+          {/* table data  */}
+          <div className={`col-lg-7 col-md-12 ${styles.tblData}`}>
             <table className="table">
               <thead>
                 <tr>
@@ -135,7 +142,7 @@ const ShoshanDevDaho = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </Row>
       </Container>
     </div>
   );

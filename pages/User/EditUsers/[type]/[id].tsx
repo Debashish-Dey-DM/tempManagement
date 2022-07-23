@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { User } from "@prisma/client";
+import { Button } from "react-bootstrap";
 
 const EditUser = () => {
   const [state, setState] = useState(false);
@@ -91,11 +92,15 @@ const EditUser = () => {
           </form>
         </>
       ) : (
-        <>
-          <h1>Are You Sure </h1>
-          <button onClick={getUserData}>Yes</button>
-          <button>No</button>
-        </>
+        <div className="d-flex align-items-center justify-content-center mt-5">
+          <div className="text-center">
+            <h1 className="mb-4">Want to Edit User? </h1>
+            <Button onClick={getUserData} className="me-2" variant="danger">
+              Yes
+            </Button>
+            <Button variant="success" onClick={() => router.back()}>No</Button>
+          </div>
+        </div>
       )}
     </div>
   );
