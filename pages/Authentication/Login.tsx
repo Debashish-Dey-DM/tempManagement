@@ -6,12 +6,11 @@ import { Button, Container, Form } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
 import firebaseConfig from "./firebase.config";
 const Login = () => {
+  const CryptoJS = require("crypto-js");
   const [user, setUser] = useState<any>({
     email: "",
     password: "",
   });
-
-  console.log(user);
 
   const router = useRouter();
 
@@ -34,8 +33,6 @@ const Login = () => {
       res.password = e.target.value;
       setUser(res);
     }
-    // res[e.target.name] = e.target.value;
-    // setUser(res)
   };
 
   // Sign In
@@ -48,20 +45,40 @@ const Login = () => {
 
     signInWithEmailAndPassword(auth, user.email + "@gmail.com", user.password)
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("name", user.email);
-        localStorage.setItem("password", user.password);
-        localStorage.setItem("pass", '123');
+        
+        let encryptedName = CryptoJS.AES.encrypt(user.email, 'my-secret-key@123').toString();
 
-        console.log("sign in successfully");
+        console.log(res);
+        localStorage.setItem("tOken", res._tokenResponse.idToken);
+        localStorage.setItem("lId", res._tokenResponse.localId);
+        localStorage.setItem("kind", res._tokenResponse.kind);
+        localStorage.setItem("Token",res.user.refreshToken);
+        localStorage.setItem("uId",res.user.uid);
+        localStorage.setItem("phn",res.user.phoneNumber);
+        localStorage.setItem("ngalan", encryptedName); //name    
+
+        console.log("sign in successfully..........");
         router.push("/");
       })
       .catch((error) => {
-        alert(error.code);
+        alert(error.message);
       });
 
     e.preventDefault();
   };
+
+ // Decrypt
+  
+// set on the top ---- const CryptoJS = require("crypto-js");
+  
+  //  if (typeof window !== "undefined" && localStorage.getItem("ngalan")) {
+  //   const nm = localStorage.getItem("ngalan")
+  //       let bytes = CryptoJS.AES.decrypt(nm, 'my-secret-key@123');
+  //       let decryptedName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  //       console.log('dectf: ,', decryptedName)
+  // }
+
+  
 
   return (
     <div
