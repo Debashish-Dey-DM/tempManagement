@@ -38,7 +38,7 @@ const Login = () => {
   // Sign In
   const handleSignIn = (e: any) => {
     // if auth data already exists, remove all for re-auth...
-    const nm = localStorage.getItem("name");
+    const nm = localStorage.getItem("ngalan");
     if (nm) {
       localStorage.clear();
     }
