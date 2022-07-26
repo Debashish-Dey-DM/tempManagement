@@ -12,28 +12,27 @@ const Dashboard = () => {
            {/* --------- dropdown for Create / assign ----------- */}
            <Dropdown className="my-1">
             <Dropdown.Toggle id="dropdown-basic">
-              Create / Assign
+              নতুন তৈরি
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href={"/User/CreateUser"}>Create User</Dropdown.Item>
-              <Dropdown.Item href={"/Shop/CreateShop"}>Create Shop</Dropdown.Item>
-              <Dropdown.Item href={"/Home/CreateHome"}>Create Home</Dropdown.Item>
-              <Dropdown.Item href={"/User/AssignUser"}>Assign User</Dropdown.Item>
+              <Dropdown.Item href={"/User/CreateUser"}>ইউজার তৈরী</Dropdown.Item>
+              <Dropdown.Item href={"/Shop/CreateShop"}>দোকান তৈরি</Dropdown.Item>
+              <Dropdown.Item href={"/Home/CreateHome"}>ঘর তৈরি</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
           <Link href="/User/ShopOwner">
-            <a> Dokan varatiyar talika</a>
+            <a> দোকান ভাড়াটিয়ার তালিকা</a>
           </Link>
-          <Link href="/User/HomeOwner">Abashon varatiyar talika</Link>
+          <Link href="/User/HomeOwner">ঘর ভাড়াটিয়ার তালিকা</Link>
           {/* --------- dropdown for income ----------- */}
           <Dropdown className="my-1">
             <Dropdown.Toggle id="dropdown-basic">
-              Payment / aay
+             আয় / Payment
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href={"/Payments/ShoshanDevDaho"}>ShoshanDevDaho</Dropdown.Item>
-              <Dropdown.Item href={"/Payments/ShoshanDevShot"}>ShoshanDevShot</Dropdown.Item>
+            <Dropdown.Menu className={`${style.maxHeightScroll}`}>
+              <Dropdown.Item href={"/Payments/ShoshanDevDaho"}>শশ্মান দাহ</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/ShoshanDevShot"}>শশ্মান সৎকার</Dropdown.Item>
               <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
               <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
               <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
@@ -45,9 +44,9 @@ const Dashboard = () => {
           {/* --------- dropdown for spend ----------- */}
           <Dropdown className="mb-1">
             <Dropdown.Toggle id="dropdown-basic">
-              bey
+              ব্যায়
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu className={`${style.maxHeightScroll}`}>
               <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
               <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
               <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
@@ -59,12 +58,19 @@ const Dashboard = () => {
             </Dropdown.Menu>
           </Dropdown>
 
-          <Dropdown.Item href={"/Report/Payment"}>
-             Report
-          </Dropdown.Item>
-          <Link href="/">
+          <Dropdown className="my-1">
+            <Dropdown.Toggle id="dropdown-basic">
+              রিপোর্ট
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href={"/Report/Expense"}>খরচ</Dropdown.Item>
+              <Dropdown.Item href={"/Report/Payment"}> আয়</Dropdown.Item>
+              <Dropdown.Item href={"/Report/Total"}>টোটাল</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          {/* <Link href="/">
             <a> User </a>
-          </Link>
+          </Link> */}
         </div>
       </div>
       {/* <nav className="navbar navbar-expand-lg navbar-light bg-light">
