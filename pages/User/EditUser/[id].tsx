@@ -2,7 +2,8 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import commonStyles from "../../../styles/common.module.css";
 
 const EditUser = () => {
   const [state, setState] = useState(false);
@@ -52,10 +53,12 @@ const EditUser = () => {
     );
   };
   return (
-    <div>
+    <div
+      className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}
+    >
       {state ? (
-        <>
-          <h1>Hello {user?.name}</h1>
+        <Container>
+          <h3>Edit for {user?.name}</h3>
           <form onSubmit={submitData}>
             <label>Name</label>
             <input
@@ -99,7 +102,7 @@ const EditUser = () => {
             <br />
             <button type="submit">Submit</button>
           </form>
-        </>
+        </Container>
       ) : (
         <div className="d-flex align-items-center justify-content-center mt-5">
           <div className="text-center">
