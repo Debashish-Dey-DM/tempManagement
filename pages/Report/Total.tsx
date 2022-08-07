@@ -20,9 +20,7 @@ const TotalReport = () => {
     e.preventDefault();
 
     const result = await axios
-      .get(
-        `http://localhost:3000/api/report/totalreport/${dates.from}/${dates.to}`
-      )
+      .get(`localhost:3000/api/report/totalreport/${dates.from}/${dates.to}`)
       .then((res) => {
         setExpenses(res.data?.expenses);
         setPayments(res.data?.payments);
@@ -68,13 +66,9 @@ const TotalReport = () => {
               </div>
             </Col>
 
-            <Col ms={12} md={12} className='me-0 justify-content-center' >
+            <Col ms={12} md={12} className="me-0 justify-content-center">
               <h5>
-                <Button
-                  type="submit"
-                  variant="warning"
-                  className="fw-bold"
-                >
+                <Button type="submit" variant="warning" className="fw-bold">
                   Generate
                 </Button>
               </h5>
@@ -132,10 +126,10 @@ const TotalReport = () => {
         </Row>
 
         <Row className={`${styles.border} mb-4`}>
-          <Col md={6} className='text-center'>
+          <Col md={6} className="text-center">
             <h5>মোট আয়: {totalIncome}</h5>
           </Col>
-          <Col md={6} className='text-center'>
+          <Col md={6} className="text-center">
             {" "}
             <h5>মোট ব্যয়: {totalExpense}</h5>
           </Col>

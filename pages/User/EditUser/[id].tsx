@@ -22,9 +22,7 @@ const EditUser = () => {
   const getUserData = async () => {
     setState(true);
     console.log("id : ", id);
-    const result = await axios.get(
-      `http://localhost:3000/api/user/getUserById/${id}`
-    );
+    const result = await axios.get(`localhost:3000/api/user/getUserById/${id}`);
     setUser(result.data);
   };
   const handleChange = (e: any) => {
@@ -47,10 +45,14 @@ const EditUser = () => {
       ? newuser.dueMonth.toString()
       : user?.dueMonth.toString();
     const userId = user?.user_id.toString();
-    const result = await axios.post(
-      `http://localhost:3000/api/user/updateUser`,
-      { userId, name, fatherName, nid, mobile, dueMonth }
-    );
+    const result = await axios.post(`localhost:3000/api/user/updateUser`, {
+      userId,
+      name,
+      fatherName,
+      nid,
+      mobile,
+      dueMonth,
+    });
   };
   return (
     <div
@@ -110,7 +112,9 @@ const EditUser = () => {
             <Button onClick={getUserData} className="me-2" variant="danger">
               Yes
             </Button>
-            <Button variant="success" onClick={() => router.back()}>No</Button>
+            <Button variant="success" onClick={() => router.back()}>
+              No
+            </Button>
           </div>
         </div>
       )}

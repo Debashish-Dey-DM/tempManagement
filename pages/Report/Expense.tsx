@@ -15,11 +15,11 @@ const Payment = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setShow(true)
+    setShow(true);
 
     const result = await axios
       .get(
-        `http://localhost:3000/api/report/expenses/${dates.from}/${dates.to}/${type}`
+        `localhost:3000/api/report/expenses/${dates.from}/${dates.to}/${type}`
       )
       .then((res) => {
         setExpenses(res.data?.payments);
