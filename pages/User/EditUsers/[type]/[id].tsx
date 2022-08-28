@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
 import { User } from "@prisma/client";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 
 const EditUser = () => {
@@ -17,13 +17,11 @@ const EditUser = () => {
   const router = useRouter();
   const id = router.query.id;
   console.log(id);
-  
+
   const getUserData = async () => {
     setState(true);
     console.log("id : ", id);
-    const result = await axios.get(
-      `http://localhost:3000/api/user/getUserById/${id}`
-    );
+    const result = await axios.get(`localhost:3000/api/user/getUserById/${id}`);
     setUser(result.data);
   };
   const handleChange = (e: any) => {
@@ -44,8 +42,7 @@ const EditUser = () => {
       : user?.mobiile.toString();
     const dueMonth = newuser.dueMonth
       ? newuser.dueMonth.toString()
-          : user?.dueMonth.toString();
-     
+      : user?.dueMonth.toString();
   };
   return (
     <div>
@@ -98,7 +95,9 @@ const EditUser = () => {
             <Button onClick={getUserData} className="me-2" variant="danger">
               Yes
             </Button>
-            <Button variant="success" onClick={() => router.back()}>No</Button>
+            <Button variant="success" onClick={() => router.back()}>
+              No
+            </Button>
           </div>
         </div>
       )}

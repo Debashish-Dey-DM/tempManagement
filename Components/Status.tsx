@@ -28,7 +28,7 @@ const coinIcon = <FontAwesomeIcon icon={faCoins} />
                 {/* ----- green box ----- */}
                 <Col md={3} className={`${styles.box} ${styles.clrGrn} d-flex flex-column px-0 pt-3`}>
                 <span className={styles.icon}>{coinIcon}</span>
-                    <h3 className='my-4 text-white'>চলতি মাসের আয় : 01</h3>
+                    <h3 className='my-4 text-white'>চলতি মাসের আয় : <br/> 01</h3>
                     <span className={styles.view}>view Payement</span>
                 </Col>
             </Row>

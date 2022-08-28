@@ -4,8 +4,18 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
-import firebaseConfig from "./firebase.config";
 const Login = () => {
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAF6n5ilxA7eYLZF-f-zf_aF7TAfXsxeD0",
+    authDomain: "bkm-mondir.firebaseapp.com",
+    projectId: "bkm-mondir",
+    storageBucket: "bkm-mondir.appspot.com",
+    messagingSenderId: "277177412858",
+    appId: "1:277177412858:web:6848c4ea1109d90df9ad43"
+};
+
+
   const CryptoJS = require("crypto-js");
   const [user, setUser] = useState<any>({
     email: "",
@@ -49,12 +59,12 @@ const Login = () => {
         let encryptedName = CryptoJS.AES.encrypt(user.email, 'my-secret-key@123').toString();
 
         console.log(res);
-        localStorage.setItem("tOken", res._tokenResponse.idToken);
-        localStorage.setItem("lId", res._tokenResponse.localId);
-        localStorage.setItem("kind", res._tokenResponse.kind);
+        // localStorage.setItem("tOken", res._tokenResponse.idToken);
+        // localStorage.setItem("lId", res._tokenResponse.localId);
+        // localStorage.setItem("kind", res._tokenResponse.kind);
         localStorage.setItem("Token",res.user.refreshToken);
         localStorage.setItem("uId",res.user.uid);
-        localStorage.setItem("phn",res.user.phoneNumber);
+        // localStorage.setItem("phn",res.user.phoneNumber);
         localStorage.setItem("ngalan", encryptedName); //name    
 
         console.log("sign in successfully..........");

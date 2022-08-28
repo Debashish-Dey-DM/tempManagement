@@ -1,44 +1,48 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 const TempDev = () => {
-    const [pay, setPay] = useState({
-        type: "TempDev",
-        date: "",
-        amount:"",
-    })
-    const handleSubmit =async (e: any) => {
-        e.preventDefault();
+  const [pay, setPay] = useState({
+    type: "TempDev",
+    date: "",
+    amount: "",
+  });
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
-        const result = await axios.post("http://localhost:3000/api/Expenses/createExpense", { pay }).
-            then(res => {
-                console.log(res.data);
-            }).catch(err => {
-                console.log(err);
-            })      
+    const result = await axios
+      .post("localhost:3000/api/Expenses/createExpense", { pay })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleChange = (e: any) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    if (name === "date") {
+      const newDate = new Date(value);
+      const updatedDate = newDate.toISOString();
+      setPay({ ...pay, [name]: updatedDate });
+    } else {
+      setPay({ ...pay, [name]: value });
     }
-    const handleChange = (e: any) => {
-        
-        const name = e.target.name;
-        const value = e.target.value;
-        if (name === "date") {
-            const newDate = new Date(value)
-            const updatedDate = newDate.toISOString();
-            setPay({ ...pay, [name]: updatedDate })
-        }
-        else {
-            setPay({ ...pay, [name]: value })
-        }
-        
-    }
-    return (
+  };
+  return (
+    <div>
+      <h1>TempDev</h1>
+      <form onSubmit={handleSubmit}>
         <div>
-            <h1>TempDev</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="">amount</label>
-                    <input type="text" onChange={handleChange} name="amount" placeholder="amount" />
-                    <br />
-                    {/* <label htmlFor="">Month</label>
+          <label htmlFor="">amount</label>
+          <input
+            type="text"
+            onChange={handleChange}
+            name="amount"
+            placeholder="amount"
+          />
+          <br />
+          {/* <label htmlFor="">Month</label>
                     <select name="Month" id="">
                         <option value="January">January</option>
                         <option value="February">February</option>
@@ -53,13 +57,18 @@ const TempDev = () => {
                         <option value="November">November</option>
                         <option value="December">December</option>
                     </select> */}
-                    <label htmlFor="">Date</label>
-                    <input type="Date" onChange={handleChange} name="date" placeholder="Date" />
-                    <br />
-                    <button type="submit" >Submit</button>
-                </div>
-            </form>
+          <label htmlFor="">Date</label>
+          <input
+            type="Date"
+            onChange={handleChange}
+            name="date"
+            placeholder="Date"
+          />
+          <br />
+          <button type="submit">Submit</button>
         </div>
-    );
-}
+      </form>
+    </div>
+  );
+};
 export default TempDev;

@@ -15,11 +15,11 @@ const Payment = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setShow(true)
+    setShow(true);
 
     const result = await axios
       .get(
-        `http://localhost:3000/api/report/expenses/${dates.from}/${dates.to}/${type}`
+        `localhost:3000/api/report/expenses/${dates.from}/${dates.to}/${type}`
       )
       .then((res) => {
         setExpenses(res.data?.payments);
@@ -50,13 +50,26 @@ const Payment = () => {
               >
                 <option value="">Select</option>
                 <option value="TempDev">TempDev</option>
-                <option value="newCategory">newCategory</option>
-                <option value="newCategory">newCategory</option>
-                <option value="newCategory">newCategory</option>
-                <option value="newCategory">newCategory</option>
-                <option value="newCategory">newCategory</option>
-                <option value="newCategory">newCategory</option>
-                <option value="newCategory">newCategory</option>
+                <option value="">মন্দির উন্নয়ন ও সংস্কারমূলক কাজ</option>
+                <option value="">শ্মশান উন্নয়ন ও সংস্কারমূলক কাজ</option>
+                <option value="">
+                  মন্দির কার্যে সংশ্লিষ্টদের সম্মানি-বেতন-ভাতাদি
+                </option>
+                <option value="">দৈনিক/সাপ্তাহিক পূজা</option>
+                <option value="">
+                  আপ্যায়ন সভা ও বিশেষ প্রার্থনা ভোগ ইত্যাদি খরচ
+                </option>
+                <option value="">প্রশাসনিক ও আইন সংক্রান্ত খরচ</option>
+                <option value="">
+                  মন্দির সংশ্লিষ্ট প্রচার প্রকাশনা ও যাতায়াত বাবদ খরচাদি
+                </option>
+                <option value="">অফিস স্টেশনারী-খাতা-কলম</option>
+                <option value="">
+                  মন্দির হতে বিভিন্ন সেবামূলক, সমাজ কল্যাণ কাজ এবং দান অনুদান
+                </option>
+                <option value="">বিদ্যুৎ, গ্যাস, টেলিফোন ও অন্যান্য বিল</option>
+                <option value="">বিবিধ</option>
+                <option value="">বিশেষ অনুষ্ঠান সমূহ</option>
               </select>
             </Col>
 
