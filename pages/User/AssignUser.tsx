@@ -16,11 +16,11 @@ const AssignUser = () => {
     home: "",
   });
   const mount = async () => {
-    const res = await axios.get("localhost:3000/api/user/getAllUser");
+    const res = await axios.get("http://localhost:3000/api/user/getAllUser");
     setUsers(res.data);
-    const res2 = await axios.get("localhost:3000/api/shop/getAllShop");
+    const res2 = await axios.get("http://localhost:3000/api/shop/getAllShop");
     setShops(res2.data);
-    const res3 = await axios.get("localhost:3000/api/home/getAllHome");
+    const res3 = await axios.get("http://localhost:3000/api/home/getAllHome");
     setHomes(res3.data);
   };
   useEffect(() => {
@@ -30,14 +30,14 @@ const AssignUser = () => {
     e.preventDefault();
 
     const response = await axios.post(
-      `localhost:3000/api/user/assignToShop/${userShop.user}/${userShop.shop}`
+      `http://localhost:3000/api/user/assignToShop/${userShop.user}/${userShop.shop}`
     );
     console.log(response);
   };
   const submitHome = async (e: any) => {
     e.preventDefault();
     const response2 = await axios.post(
-      `localhost:3000/api/user/assignToHome/${userHome.user}/${userHome.home}`
+      `http://localhost:3000/api/user/assignToHome/${userHome.user}/${userHome.home}`
     );
     console.log(response2);
   };

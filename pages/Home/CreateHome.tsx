@@ -8,7 +8,7 @@ const CreateHome = () => {
   const [newId, setNewId] = useState<string | undefined>();
   const router = useRouter();
   const mount = async () => {
-    const res = await axios.get("localhost:3000/api/home/GetNewHomeId");
+    const res = await axios.get("http://localhost:3000/api/home/GetNewHomeId");
     setNewId(res.data);
   };
   useEffect(() => {
@@ -17,7 +17,7 @@ const CreateHome = () => {
   const submitData = async (e: any) => {
     e.preventDefault();
     const rate = e.target?.[2]?.value;
-    const res = await axios.post("localhost:3000/api/home/createHome", {
+    const res = await axios.post("http://localhost:3000/api/home/createHome", {
       rate,
     });
     console.log(res.data);

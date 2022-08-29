@@ -19,7 +19,7 @@ const ShoshanDevDaho = () => {
 
   const mount = async () => {
     await axios
-      .get("localhost:3000/api/Payments/getPayments/ShoshanDevDaho")
+      .get("http://localhost:3000/api/Payments/getPayments/ShoshanDevDaho")
       .then((res) => {
         //   console.log(res.data[3]?.date.toLocaleDateString("en-US"));
         //   var today = new Date(res.data[3]?.date);
@@ -41,7 +41,7 @@ const ShoshanDevDaho = () => {
     e.preventDefault();
 
     const result = await axios
-      .post("localhost:3000/api/Payments/createPayment", {
+      .post("http://localhost:3000/api/Payments/createPayment", {
         pay,
       })
       .then((res) => {

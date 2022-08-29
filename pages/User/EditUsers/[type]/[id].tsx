@@ -21,7 +21,7 @@ const EditUser = () => {
   const getUserData = async () => {
     setState(true);
     console.log("id : ", id);
-    const result = await axios.get(`localhost:3000/api/user/getUserById/${id}`);
+    const result = await axios.get(`http://localhost:3000/api/user/getUserById/${id}`);
     setUser(result.data);
   };
   const handleChange = (e: any) => {

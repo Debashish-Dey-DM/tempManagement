@@ -1,13 +1,18 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
+import nextConnect from "next-connect";
+import prisma from "../../lib/prisma";
+//import controller
+const handler = nextConnect<NextApiRequest, NextApiResponse>();
+handler.get(
+    async (req, res) => {
+        const shop = await prisma.shop.findFirst({
+            where: {
+                users: null
+            }
+        })
+       
+        res.json(shop?.shop_id);
 
-type Data = {
-  name: string
-}
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: 'John Doe' })
-}
+    }
+)
+export default handler;

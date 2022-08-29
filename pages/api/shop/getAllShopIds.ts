@@ -6,6 +6,7 @@ import prisma from "../../../lib/prisma";
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.get(
     async (req, res) => {
+        
         let shopIds:number[] = [];
         const shop = await prisma.shop.findMany();
         shop?.map((item:Shop)=>shopIds.push(item.shop_id));

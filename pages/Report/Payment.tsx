@@ -20,7 +20,7 @@ const Payment = () => {
 
     const result = await axios
       .get(
-        `localhost:3000/api/report/payments/${dates.from}/${dates.to}/${type}`
+        `http://localhost:3000/api/report/payments/${dates.from}/${dates.to}/${type}`
       )
       .then((res) => {
         setPayments(res.data?.payments);
