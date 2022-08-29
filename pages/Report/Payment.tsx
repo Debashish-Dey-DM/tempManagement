@@ -1,7 +1,8 @@
 import { Payment } from "@prisma/client";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import ReactToPrint from "react-to-print";
 import commonStyles from "../../styles/common.module.css";
 const Payment = () => {
   const [dates, setDates] = useState({
@@ -20,7 +21,7 @@ const Payment = () => {
 
     const result = await axios
       .get(
-        `localhost:3000/api/report/payments/${dates.from}/${dates.to}/${type}`
+        `http://localhost:3000/api/report/payments/${dates.from}/${dates.to}/${type}`
       )
       .then((res) => {
         setPayments(res.data?.payments);
@@ -35,6 +36,9 @@ const Payment = () => {
     const updatedDate = newDate.toISOString();
     setDates({ ...dates, [name]: updatedDate });
   };
+
+  const componentRef = useRef();
+
   return (
     <div
       className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
@@ -102,8 +106,15 @@ const Payment = () => {
             </Col>
           </Row>
 
-          <div className={`${show ? "d-block" : "d-none"}`}>
-            <h4>Type: {type}</h4>
+           <ReactToPrint
+                  trigger={() => <Button variant="secondary">Print income</Button>}
+                  content={() => componentRef.current}
+                  documentTitle="Payment Report"
+                  pageStyle="print"
+          />
+          
+          <div className={`${show ? "d-block" : "d-none"}`} ref={componentRef}>
+            <h4 className="mt-3">Type: {type}</h4>
             <table className="table table-striped">
               <thead>
                 <tr>

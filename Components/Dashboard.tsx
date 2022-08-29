@@ -33,8 +33,6 @@ const Dashboard = () => {
             <Dropdown.Menu className={`${style.maxHeightScroll}`}>
               <Dropdown.Item href={"/Payments/ShoshanDevDaho"}>শ্মশান উন্নয়ন (দাহ সনদ)</Dropdown.Item>
               <Dropdown.Item href={"/Payments/ShoshanDevShot"}>শ্মশান উন্নয়ন (সৎকার)</Dropdown.Item>
-              <Dropdown.Item href="#">দোকান ভাড়া</Dropdown.Item>
-              <Dropdown.Item href="#">আবাসন ঘর ভাড়া</Dropdown.Item>
               <Dropdown.Item href="#">দিঘী লিজ বাবদ</Dropdown.Item>
               <Dropdown.Item href="#">মন্দির দান বাক্স হতে</Dropdown.Item>
               <Dropdown.Item href="#">সরকারি-বেসরকারি দান-অনুদান</Dropdown.Item>

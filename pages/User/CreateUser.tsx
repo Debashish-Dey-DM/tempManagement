@@ -40,7 +40,7 @@ const CreateUser = () => {
     const typeId = user.typeId.toString();
     console.log("userSubmitted : ", user);
     console.log("userType : ", userType);
-    const res = await axios.post("localhost:3000/api/user/createUser", {
+    const res = await axios.post("http://localhost:3000/api/user/createUser", {
       name,
       fatherName,
       nid,
@@ -68,10 +68,10 @@ const CreateUser = () => {
     setUser({ ...user, [name]: value });
   };
   const mount = async () => {
-    await axios.get("localhost:3000/api/shop/unAssignedShop").then((res) => {
+    await axios.get("http://localhost:3000/api/shop/unAssignedShop").then((res) => {
       setShopID(res.data);
     });
-    await axios.get("localhost:3000/api/home/unAssignedHome").then((res) => {
+    await axios.get("http://localhost:3000/api/home/unAssignedHome").then((res) => {
       setHomeID(res.data);
     });
   };

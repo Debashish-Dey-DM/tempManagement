@@ -6,7 +6,7 @@ const PaymentHistory = () => {
   const id = router.query.id;
   const getUserData = async () => {
     const res = await axios.get(
-      "localhost:3000/api/Payments/getPaymentByUser/1"
+      "http://localhost:3000/api/Payments/getPaymentByUser/1"
     );
     console.log(res.data);
   };

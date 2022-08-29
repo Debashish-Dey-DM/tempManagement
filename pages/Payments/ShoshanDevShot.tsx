@@ -18,7 +18,7 @@ const ShoshanDevShot = () => {
 
   const mount = async () => {
     await axios
-      .get("localhost:3000/api/Payments/getPayments/ShoshanDevShot")
+      .get("http://localhost:3000/api/Payments/getPayments/ShoshanDevShot")
       .then((res) => {
         console.log(res.data);
         setPayment(res.data);
@@ -37,7 +37,7 @@ const ShoshanDevShot = () => {
     e.preventDefault();
 
     const result = await axios
-      .post("localhost:3000/api/Payments/createPayment", {
+      .post("http://localhost:3000/api/Payments/createPayment", {
         pay,
       })
       .then((res) => {
