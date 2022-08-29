@@ -135,7 +135,7 @@ const HomePayments = () => {
                 <tbody>
                   {payment1?.map((payment: any) => (
                     <tr key={payment.id}>
-                      <td>{payment.date}</td>
+                      <td>{new Date(payment.date).toLocaleDateString("bn-BD")}</td>
                       <td>{payment.amount}</td>
                       <td>
                         <Button onClick={() => paymentSlip(payment.id)}>
