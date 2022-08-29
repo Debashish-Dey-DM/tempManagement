@@ -10,7 +10,7 @@ const TempDev = () => {
     e.preventDefault();
 
     const result = await axios
-      .post("localhost:3000/api/Expenses/createExpense", { pay })
+      .post("http://localhost:3000/api/Expenses/createExpense", { pay })
       .then((res) => {
         console.log(res.data);
       })

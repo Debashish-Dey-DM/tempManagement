@@ -22,7 +22,7 @@ const TotalReport = () => {
     e.preventDefault();
 
     const result = await axios
-      .get(`localhost:3000/api/report/totalreport/${dates.from}/${dates.to}`)
+      .get(`http://localhost:3000/api/report/totalreport/${dates.from}/${dates.to}`)
       .then((res) => {
         setExpenses(res.data?.expenses);
         setPayments(res.data?.payments);

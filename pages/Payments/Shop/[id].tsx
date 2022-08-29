@@ -19,7 +19,7 @@ const HomePayments = () => {
   const getData = async () => {
     setState(true);
     await axios
-      .get(`localhost:3000/api/Payments/getPaymentByUser/${id}`)
+      .get(`http://localhost:3000/api/Payments/getPaymentByUser/${id}`)
       .then((res) => {
         setPayment1(res.data?.payments);
         setUser(res.data?.user);
@@ -33,7 +33,7 @@ const HomePayments = () => {
     const newDate = new Date(payment.date);
     const date = newDate.toISOString();
 
-    const res = await axios.post(`localhost:3000/api/Payments/homePayment`, {
+    const res = await axios.post(`http://localhost:3000/api/Payments/homePayment`, {
       user_id,
       type,
       amount,
@@ -49,7 +49,7 @@ const HomePayments = () => {
   };
   const paymentSlip = async (p: any) => {
     const res = await axios.get(
-      `localhost:3000/api/Payments/getPaymentByID/${p}`
+      `http://localhost:3000/api/Payments/getPaymentByID/${p}`
     );
     console.log(res.data);
   };
