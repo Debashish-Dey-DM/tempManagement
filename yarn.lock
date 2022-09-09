@@ -1048,7 +1048,6 @@
     "axios" "^0.26.1"
     "bkm-mondir" "file:"
     "bootstrap" "^5.1.3"
-    "cors" "^2.8.5"
     "crypto-js" "^4.1.1"
     "firebase" "^9.9.0"
     "firebase-admin" "^11.0.0"
@@ -1056,7 +1055,6 @@
     "jsonwebtoken" "^8.5.1"
     "next" "12.1.0"
     "next-connect" "^0.12.2"
-    "nextjs-cors" "^2.1.1"
     "react" "17.0.2"
     "react-bootstrap" "^2.2.1"
     "react-dom" "17.0.2"
@@ -2688,7 +2686,7 @@
   dependencies:
     "trouter" "^3.2.0"
 
-"next@^8.1.1-canary.54 || ^9.0.0 || ^10.0.0-0 || ^11.0.0 || ^12.0.0", "next@12.1.0":
+"next@12.1.0":
   "integrity" "sha512-s885kWvnIlxsUFHq9UGyIyLiuD0G3BUC/xrH0CEnH5lHEWkwQcHOORgbDF0hbrW9vr/7am4ETfX4A7M6DjrE7Q=="
   "resolved" "https://registry.npmjs.org/next/-/next-12.1.0.tgz"
   "version" "12.1.0"
@@ -2710,13 +2708,6 @@
     "@next/swc-win32-arm64-msvc" "12.1.0"
     "@next/swc-win32-ia32-msvc" "12.1.0"
     "@next/swc-win32-x64-msvc" "12.1.0"
-
-"nextjs-cors@^2.1.1":
-  "integrity" "sha512-HxE4w4Wng5VdTtnn0DWPphuWKwd1Ty+lpyTZ/sQGgaNnd5demYMchKf+W1LtI8YFYxu2HnRb3MrxERRV0QKLKA=="
-  "resolved" "https://registry.npmjs.org/nextjs-cors/-/nextjs-cors-2.1.1.tgz"
-  "version" "2.1.1"
-  dependencies:
-    "cors" "^2.8.5"
 
 "node-fetch@^2.6.1", "node-fetch@^2.6.7", "node-fetch@2.6.7":
   "integrity" "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ=="

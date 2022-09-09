@@ -68,12 +68,16 @@ const CreateUser = () => {
     setUser({ ...user, [name]: value });
   };
   const mount = async () => {
-    await axios.get("http://localhost:3000/api/shop/unAssignedShop").then((res) => {
-      setShopID(res.data);
-    });
-    await axios.get("http://localhost:3000/api/home/unAssignedHome").then((res) => {
-      setHomeID(res.data);
-    });
+    await axios
+      .get("http://localhost:3000/api/shop/unAssignedShop")
+      .then((res) => {
+        setShopID(res.data);
+      });
+    await axios
+      .get("http://localhost:3000/api/home/unAssignedHome")
+      .then((res) => {
+        setHomeID(res.data);
+      });
   };
   const typeChange = (e: any) => {
     if (e.target.value == "Home") {

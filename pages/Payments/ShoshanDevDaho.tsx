@@ -38,6 +38,7 @@ const ShoshanDevDaho = () => {
     mount();
   }, []);
   const handleSubmit = async (e: any) => {
+    //need to change database acording to scn sht
     e.preventDefault();
 
     const result = await axios
@@ -82,6 +83,7 @@ const ShoshanDevDaho = () => {
         <h3>অনুদান প্রাপ্তি রসিদ - </h3>
         
         <Form className="py-4">
+          {/* here will be call handleSubmit */}
           <Row>
             <Col md={6}>
               <Form.Control
@@ -144,7 +146,7 @@ const ShoshanDevDaho = () => {
             <Col md={6}>
               <Form.Control
                 type="number"
-                placeholder="উন্নয়ন ফি বাবদ অনুদান"
+                placeholder="দাহ সনদ বাবদ অনুদান"
                 name="amount"
                 onBlur={handleChange}
               />

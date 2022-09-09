@@ -32,12 +32,15 @@ const HomePayments = () => {
     const newDate = new Date(payment.date);
     const date = newDate.toISOString();
 
-    const res = await axios.post(`http://localhost:3000/api/Payments/homePayment`, {
-      user_id,
-      type,
-      amount,
-      date,
-    });
+    const res = await axios.post(
+      `http://localhost:3000/api/Payments/homePayment`,
+      {
+        user_id,
+        type,
+        amount,
+        date,
+      }
+    );
     console.log(res);
   };
   const handleChange = (e: any) => {
@@ -55,10 +58,11 @@ const HomePayments = () => {
 
   return (
     <div>
-        {state ? (
-          <div className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}
-          >
-            <Container className={`${commonStyles.commonForm} pt-3`}>
+      {state ? (
+        <div
+          className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}
+        >
+          <Container className={`${commonStyles.commonForm} pt-3`}>
             <Row>
               <Col md={5}>
                 <h4>Name : {user?.name}</h4>
@@ -123,7 +127,7 @@ const HomePayments = () => {
             </div>
             <div>
               <h4>Payment History</h4>
-              <Table striped bordered hover className='text-center mb-3'>
+              <Table striped bordered hover className="text-center mb-3">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -146,23 +150,22 @@ const HomePayments = () => {
                 </tbody>
               </Table>
             </div>
-            </Container>
+          </Container>
+        </div>
+      ) : (
+        <div className="d-flex align-items-center justify-content-center mt-5">
+          <div className="text-center">
+            <h1 className="mb-4">Want to Home Data? </h1>
+            <Button onClick={getData} className="me-2" variant="success">
+              Yes
+            </Button>
+            <Button variant="danger" onClick={() => router.back()}>
+              {/* on click function should be change to another route */}
+              No
+            </Button>
           </div>
-        ) : (
-          <div className="d-flex align-items-center justify-content-center mt-5">
-            <div className="text-center">
-              <h1 className="mb-4">Want to Home Data? </h1>
-              <Button onClick={getData} className="me-2" variant="success">
-                Yes
-              </Button>
-              <Button variant="danger" onClick={() => router.back()}>
-                {/* on click function should be change to another route */}
-                No
-              </Button>
-            </div>
-          </div>
-        )}
-      
+        </div>
+      )}
     </div>
   );
 };

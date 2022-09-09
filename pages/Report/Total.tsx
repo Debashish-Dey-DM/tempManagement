@@ -22,7 +22,9 @@ const TotalReport = () => {
     e.preventDefault();
 
     const result = await axios
-      .get(`http://localhost:3000/api/report/totalreport/${dates.from}/${dates.to}`)
+      .get(
+        `http://localhost:3000/api/report/totalreport/${dates.from}/${dates.to}`
+      )
       .then((res) => {
         setExpenses(res.data?.expenses);
         setPayments(res.data?.payments);
@@ -86,7 +88,7 @@ const TotalReport = () => {
         <Row className={`${styles.scroll} text-center`}>
           {/* income */}
           <Col md={6}>
-            <TotalIncome payments={payments}/>
+            <TotalIncome payments={payments} />
           </Col>
           {/* expense */}
           <Col md={6}>

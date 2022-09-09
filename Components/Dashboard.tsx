@@ -31,18 +31,18 @@ const Dashboard = () => {
              আয় / Payment
             </Dropdown.Toggle>
             <Dropdown.Menu className={`${style.maxHeightScroll}`}>
-              <Dropdown.Item href={"/Payments/ShoshanDevDaho"}>শ্মশান উন্নয়ন (দাহ সনদ)</Dropdown.Item>
+            <Dropdown.Item href={"/Payments/ShoshanDevDaho"}>শ্মশান উন্নয়ন (দাহ সনদ)</Dropdown.Item>
               <Dropdown.Item href={"/Payments/ShoshanDevShot"}>শ্মশান উন্নয়ন (সৎকার)</Dropdown.Item>
               <Dropdown.Item href={"/Payments/Dighi"}>দিঘী লিজ বাবদ</Dropdown.Item>
-              <Dropdown.Item href="#">মন্দির দান বাক্স হতে</Dropdown.Item>
-              <Dropdown.Item href="#">সরকারি-বেসরকারি দান-অনুদান</Dropdown.Item>
-              <Dropdown.Item href="#">দোকান-ঘর-অন্যান্য ক্রয়-বিক্রয় বাবদ</Dropdown.Item>
-              <Dropdown.Item href="#">শ্মশানস্থ সমাধি ও অন্যান্য </Dropdown.Item>
-              <Dropdown.Item href="#">জিনিস পত্রাদি প্রাপ্তি </Dropdown.Item>
-              <Dropdown.Item href="#">কমিটির কার্যনির্বাহী সদস্যদের চাঁদা (মাসিক ভিত্তিতে) </Dropdown.Item>
-              <Dropdown.Item href="#">স্যুভেনির, প্রকাশনা, স্মারক ও প্রচার</Dropdown.Item>
-              <Dropdown.Item href="#">বিবিধ</Dropdown.Item>
-              <Dropdown.Item href="#"> অন্যান্য প্রাপ্তি (বিবাহ-শ্রাদ্ধাদি-ঘাটকাজ-নিয়মিত ভক্তের অনুদান)</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/DanBox"}>মন্দির দান বাক্স হতে</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/DanOnudan"}>সরকারি-বেসরকারি দান-অনুদান</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/BuySell"}>দোকান-ঘর-অন্যান্য ক্রয়-বিক্রয় বাবদ</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/SosanSomadhi"}>শ্মশানস্থ সমাধি ও অন্যান্য </Dropdown.Item>
+              <Dropdown.Item href={"/Payments/JinisPotroPrapti"}>জিনিস পত্রাদি প্রাপ্তি </Dropdown.Item>
+              <Dropdown.Item href={"/Payments/CommitteeChada"}>কমিটির কার্যনির্বাহী সদস্যদের চাঁদা (মাসিক ভিত্তিতে) </Dropdown.Item>
+              <Dropdown.Item href={"/Payments/ProkashonaProchar"}>স্যুভেনির, প্রকাশনা, স্মারক ও প্রচার</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/Bibidh"}>বিবিধ</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/Others"}> অন্যান্য প্রাপ্তি (বিবাহ-শ্রাদ্ধাদি-ঘাটকাজ-নিয়মিত ভক্তের অনুদান)</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           {/* --------- dropdown for spend ----------- */}

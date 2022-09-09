@@ -10,7 +10,9 @@ const ShopOwner = () => {
   const router = useRouter();
   const [user, setUser] = useState<UserExtended[]>();
   const mount = async () => {
-    const result = await axios.get(`http://localhost:3000/api/user/getAllShopOwner`);
+    const result = await axios.get(
+      `http://localhost:3000/api/user/getAllShopOwner`
+    );
     setUser(result.data);
   };
   useEffect(() => {

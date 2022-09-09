@@ -2,10 +2,9 @@ import { Payment } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
-import { Button, Container, Form, Row } from "react-bootstrap";
+import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
-import styles from "./ShoshanDevDaho.module.css";
+
 const ShoshanDevShot = () => {
   const [payment, setPayment] = useState<Payment[]>();
   const [totalAmount, setTotalAmount] = useState(0);
@@ -231,58 +230,5 @@ const ShoshanDevShot = () => {
   //   </div>
   // );
 
-  // prev code
-  // return (
-  //     <div className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}>
-  //         <Container
-  //     className={`${commonStyles.commonForm} ${styles.minHeight35} py-3`}
-  //   >
-
-  //     <h3>ShoshanDevShot</h3>
-  //     <Row>
-  //             <div className="col-lg-5 col-md-12">
-  //             <form onSubmit={handleSubmit}>
-  //             <div>
-  //                 <label htmlFor="">পরিমাণ</label>
-  //                 <input type="text" onChange={handleChange} name="amount" placeholder="amount" />
-  //                 <br />
-  //                 <label htmlFor="">Date</label>
-  //                 <input type="Date" onChange={handleChange} name="date" placeholder="Date" />
-  //                 <br />
-  //                 <button type="submit" >Submit</button>
-  //             </div>
-  //         </form>
-  //             </div>
-  //             <div className="col">
-  //                 <table className="table">
-  //                     <thead>
-  //                         <tr>
-  //                             <th>Date</th>
-  //                             <th>Amount</th>
-
-  //                         </tr>
-  //                     </thead>
-  //                     <tbody>
-  //                 {payment?.map((p,i) => {
-  //                     return (
-  //                         <tr key={i}>
-  //                             <td>{p.date}</td>
-  //                             <td>{p.amount}</td>
-  //                         </tr>
-  //                     )
-  //                 })}
-  //                 <tr>
-  //                             <td><h5>Total</h5></td>
-  //                             <td> {totalAmount}</td>
-
-  //                 </tr>
-  //                     </tbody>
-  //                 </table>
-  //                 <button onClick={test}>test</button>
-  //             </div>
-  //             </Row>
-  //         </Container>
-  //     </div>
-  // );
-};
+ };
 export default ShoshanDevShot;
