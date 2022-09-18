@@ -1,7 +1,8 @@
 import { Payment } from "@prisma/client";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import ReactToPrint from "react-to-print";
 import commonStyles from "../../styles/common.module.css";
 const Payment = () => {
   const [dates, setDates] = useState({
@@ -35,6 +36,8 @@ const Payment = () => {
     const updatedDate = newDate.toISOString();
     setDates({ ...dates, [name]: updatedDate });
   };
+  // for printing
+  const componentRef = useRef(null);
   return (
     <div
       className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
@@ -104,6 +107,12 @@ const Payment = () => {
 
           <div className={`${show ? "d-block" : "d-none"}`}>
             <h4>Type: {type}</h4>
+            <ReactToPrint
+              trigger={() => <Button variant="secondary">Print income</Button>}
+              content={() => componentRef.current}
+              documentTitle={`আয়ের রিপোর্ট - ${type}`}
+              pageStyle="print"
+            />
             <table className="table table-striped">
               <thead>
                 <tr>
@@ -126,6 +135,34 @@ const Payment = () => {
             </table>
 
             <h4>Total: {total}</h4>
+
+            {/* printing purposes */}
+            <div style={{ display: "none" }}>
+              <div ref={componentRef}>
+                <h3 className='mt-3 text-center'>শ্রী শ্রী বরদেস্বরী কালি মাতা মন্দির</h3>
+                <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {payments?.map((p, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{new Date(p.date).toLocaleDateString("bn-BD")}</td>
+                      <td>{p?.amount}</td>
+                      <td>{p?.type}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+                <h4>Total: {total}</h4>
+              </div>
+            </div>
           </div>
         </form>
       </Container>

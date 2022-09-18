@@ -2,10 +2,10 @@ import React, { useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import ReactToPrint from 'react-to-print';
 
-const TotalIncome = ({payments,}) => {
+const TotalIncome = ({payments}) => {
     
   //printing functionality
-  const componentRef = useRef();
+  const componentRef = useRef(null);
     return (
         <div>
             <ReactToPrint

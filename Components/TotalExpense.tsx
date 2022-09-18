@@ -4,7 +4,7 @@ import ReactToPrint from "react-to-print";
 
 const TotalExpense = ({ expenses }) => {
   //printing functionality
-  const componentRef = useRef();
+  const componentRef = useRef(null);
   return (
     <div>
       <ReactToPrint
