@@ -8,12 +8,18 @@ import commonStyles from "../../styles/common.module.css";
 const ShoshanDevShot = () => {
   const [payment, setPayment] = useState<Payment[]>();
   const [totalAmount, setTotalAmount] = useState(0);
-  const [pay, setPay] = useState({
+   const [pay, setPay] = useState({
     type: "ShoshanDevShot",
-    date: "",
+    name: "",
+    fatherName: "",
+    motherName: "",
+    address: "",
+    reference: "",
+    relation: "",
     amount: "",
+    shoshanType: "Shot",
+    date: "",
   });
-
   const router = useRouter();
 
   const mount = async () => {
@@ -34,10 +40,11 @@ const ShoshanDevShot = () => {
     mount();
   }, []);
   const handleSubmit = async (e: any) => {
+    //need to change database acording to scn sht
     e.preventDefault();
-
+    
     const result = await axios
-      .post("http://localhost:3000/api/Payments/createPayment", {
+      .post("http://localhost:3000/api/Payments/createShoshanPayment", {
         pay,
       })
       .then((res) => {
@@ -47,7 +54,6 @@ const ShoshanDevShot = () => {
         console.log(err);
       });
     mount();
-    router.reload();
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -76,7 +82,8 @@ const ShoshanDevShot = () => {
         <h3 className="alert alert-primary">শ্মশান উন্নয়ন (সৎকার)</h3>
         <h3>অনুদান প্রাপ্তি রসিদ - </h3>
         
-        <Form className="py-4">
+        <Form className="py-4"
+        onSubmit={handleSubmit}>
           <Row>
             <Col md={6}>
               <Form.Control
@@ -149,7 +156,12 @@ const ShoshanDevShot = () => {
             </Col>
           </Row>
         </Form>
-
+        <h3>অনুদান প্রাপ্তি রসিদ - </h3>
+        {payment?.map((i: Payment) => {
+          return (
+            <div key={i.id}>hello</div>
+          )
+        })}
         {/* eikhane CreateUser.txt er code */}
       </Container>
     </div>

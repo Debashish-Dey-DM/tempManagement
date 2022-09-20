@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import ReactToPrint from 'react-to-print';
 
-const TotalIncome = ({payments}) => {
+const TotalIncome = ({payments}:any) => {
     
   //printing functionality
   const componentRef = useRef(null);
@@ -24,7 +24,7 @@ const TotalIncome = ({payments}) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {payments?.map((p, i) => {
+                  {payments?.map((p:any, i:any) => {
                   return (
                     <tr key={i}>
                       <td>{p?.date}</td>
@@ -34,7 +34,7 @@ const TotalIncome = ({payments}) => {
                   );
                 })}
 
-                  <tr>
+                  {/* <tr>
                     <td>10/12/2021</td>
                     <td>500</td>
                     <td>Dokan</td>
@@ -203,7 +203,7 @@ const TotalIncome = ({payments}) => {
                     <td>10/12/2021</td>
                     <td>300</td>
                     <td>Dokan</td>
-                  </tr>
+                  </tr> */}
                  
                 </tbody>
               </table>

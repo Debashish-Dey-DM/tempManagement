@@ -10,6 +10,7 @@ const HomePayments = () => {
   const [user, setUser] = useState<User>();
   const router = useRouter();
   const [payment1, setPayment1] = useState<Payment[]>();
+  const [dueMonth, setDueMonth] = useState("");
   const [payment, setpayment] = useState<any>({
     amount: "",
     date: "",
@@ -22,6 +23,14 @@ const HomePayments = () => {
       .then((res) => {
         setPayment1(res.data?.payments);
         setUser(res.data?.user);
+      });
+    await axios
+      .get(`http://localhost:3000/api/Payments/lastPaymentById/${id}`)
+      .then((res) => {
+        // setDueMonth(res.data);
+        console.log(res.data);
+        
+        
       });
   };
   const handleSubmit = async (e: any) => {
@@ -41,7 +50,7 @@ const HomePayments = () => {
         date,
       }
     );
-    console.log(res);
+    router.reload();
   };
   const handleChange = (e: any) => {
     setpayment({
@@ -82,7 +91,7 @@ const HomePayments = () => {
             </Row>
             <Row>
               <Col>
-                <h4>Due Month : {user?.dueMonth}</h4>
+                <h4>Due Month : {dueMonth}</h4>
               </Col>
             </Row>
             <hr />

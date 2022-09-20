@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { Button } from "react-bootstrap";
 import ReactToPrint from "react-to-print";
+import { Payment } from "@prisma/client";
 
-const TotalExpense = ({ expenses }) => {
+const TotalExpense = ({ expenses }:any) => {
   //printing functionality
   const componentRef = useRef(null);
   return (
@@ -23,7 +24,7 @@ const TotalExpense = ({ expenses }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {/* <tr>
               <td>1/1/1</td>
               <td>12.50</td>
               <td>barivara</td>
@@ -32,9 +33,9 @@ const TotalExpense = ({ expenses }) => {
               <td>2/2/2</td>
               <td>22.50</td>
               <td>barivara</td>
-            </tr>
+            </tr> */}
 
-            {expenses?.map((p, i) => {
+            {expenses?.map((p:any, i:any) => {
               return (
                 <tr key={i}>
                   <td>{p?.date}</td>

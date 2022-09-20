@@ -52,7 +52,7 @@ const Dashboard = () => {
             </Dropdown.Toggle>
             <Dropdown.Menu className={`${style.maxHeightScroll}`}>
               <Dropdown.Item href="/Expense/TempDev">মন্দির উন্নয়ন ও সংস্কারমূলক কাজ</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">শ্মশান উন্নয়ন ও সংস্কারমূলক কাজ</Dropdown.Item>
+              <Dropdown.Item href="/Expense/FuneralDev">শ্মশান উন্নয়ন ও সংস্কারমূলক কাজ</Dropdown.Item>
               <Dropdown.Item href="#/action-1">মন্দির কার্যে সংশ্লিষ্টদের সম্মানি-বেতন-ভাতাদি</Dropdown.Item>
               <Dropdown.Item href="#/action-1">দৈনিক/সাপ্তাহিক পূজা</Dropdown.Item>
               <Dropdown.Item href="#/action-1">আপ্যায়ন সভা ও বিশেষ প্রার্থনা ভোগ ইত্যাদি খরচ</Dropdown.Item>
