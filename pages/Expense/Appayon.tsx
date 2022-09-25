@@ -5,17 +5,17 @@ import { Button, Container, Row } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
 import styles from "../Payments/ShoshanDevDaho.module.css";
 
-const TempDev = () => {
+const Appayon = () => {
   const [payment, setPayment] = useState<Payment[]>();
   const [totalAmount, setTotalAmount] = useState(0);
   const [pay, setPay] = useState({
-    type: "TempDev",
+    type: "Appayon",
     date: "",
     amount: "",
   });
     const mount = async () => {
     await axios
-      .get("http://localhost:3000/api/Expenses/getPayments/TempDev")
+      .get("http://localhost:3000/api/Expenses/getPayments/Appayon")
       .then((res) => {
         //   console.log(res.data[3]?.date.toLocaleDateString("en-US"));
         //   var today = new Date(res.data[3]?.date);
@@ -64,7 +64,7 @@ const TempDev = () => {
       <Container
         className={`${commonStyles.commonForm} ${styles.minHeight35} py-3`}
       >
-        <h3 className="mb-4 alert alert-primary">মন্দির উন্নয়ন ও সংস্কারমূলক কাজ</h3>
+        <h3 className="mb-4 alert alert-primary">আপ্যায়ন সভা ও বিশেষ প্রার্থনা ভোগ ইত্যাদি খরচ</h3>
         <Row className="row">
           <div className="col-lg-5 col-md-12">
             <form onSubmit={handleSubmit} className="w-50 ">
@@ -132,4 +132,4 @@ const TempDev = () => {
     </div>
   );
 };
-export default TempDev;
+export default Appayon;

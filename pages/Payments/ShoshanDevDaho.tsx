@@ -11,8 +11,15 @@ const ShoshanDevDaho = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [pay, setPay] = useState({
     type: "ShoshanDevDaho",
-    date: "",
+    name: "",
+    fatherName: "",
+    motherName: "",
+    address: "",
+    reference: "",
+    relation: "",
     amount: "",
+    shoshanType: "Daho",
+    date: "",
   });
 
   const router = useRouter();
@@ -38,10 +45,11 @@ const ShoshanDevDaho = () => {
     mount();
   }, []);
   const handleSubmit = async (e: any) => {
+    //need to change database acording to scn sht
     e.preventDefault();
-
+    
     const result = await axios
-      .post("http://localhost:3000/api/Payments/createPayment", {
+      .post("http://localhost:3000/api/Payments/createShoshanPayment", {
         pay,
       })
       .then((res) => {
@@ -50,20 +58,19 @@ const ShoshanDevDaho = () => {
       .catch((err) => {
         console.log(err);
       });
-    mount();
-
-    router.reload();
+    
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
-    if (name === "date") {
-      const newDate = new Date(value);
-      const updatedDate = newDate.toISOString();
-      setPay({ ...pay, [name]: updatedDate });
-    } else {
-      setPay({ ...pay, [name]: value });
-    }
+    setPay({ ...pay, [name]: value });
+    // if (name === "date") {
+    //   const newDate = new Date(value);
+    //   const updatedDate = newDate.toISOString();
+    //   setPay({ ...pay, [name]: updatedDate });
+    // } else {
+    //   setPay({ ...pay, [name]: value });
+    // }
   };
   const test = () => {
     let arr: number[] = [];
@@ -81,7 +88,10 @@ const ShoshanDevDaho = () => {
         <h3 className="alert alert-primary">শ্মশান উন্নয়ন (দাহ সনদ)</h3>
         <h3>অনুদান প্রাপ্তি রসিদ - </h3>
         
-        <Form className="py-4">
+        <Form className="py-4"
+        onSubmit={handleSubmit}
+        >
+          {/* here will be call handleSubmit */}
           <Row>
             <Col md={6}>
               <Form.Control
@@ -126,7 +136,7 @@ const ShoshanDevDaho = () => {
               <Form.Control
                 type="text"
                 placeholder="পক্ষে (প্রতিনিধি)"
-                name="pokkhe"
+                name="reference"
                 onBlur={handleChange}
               />
             </Col>
@@ -144,7 +154,7 @@ const ShoshanDevDaho = () => {
             <Col md={6}>
               <Form.Control
                 type="number"
-                placeholder="উন্নয়ন ফি বাবদ অনুদান"
+                placeholder="দাহ সনদ বাবদ অনুদান"
                 name="amount"
                 onBlur={handleChange}
               />
@@ -154,7 +164,11 @@ const ShoshanDevDaho = () => {
             </Col>
           </Row>
         </Form>
-
+        {payment?.map((i: Payment) => {
+          return (
+            <div key={i.id}>hello</div>
+          )
+        })}
         {/* eikhane CreateUser.txt er code */}
       </Container>
     </div>

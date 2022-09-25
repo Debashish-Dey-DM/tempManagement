@@ -2,19 +2,24 @@ import { Payment } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
-import { Button, Container, Form, Row } from "react-bootstrap";
+import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
-import styles from "./ShoshanDevDaho.module.css";
+
 const ShoshanDevShot = () => {
   const [payment, setPayment] = useState<Payment[]>();
   const [totalAmount, setTotalAmount] = useState(0);
-  const [pay, setPay] = useState({
+   const [pay, setPay] = useState({
     type: "ShoshanDevShot",
-    date: "",
+    name: "",
+    fatherName: "",
+    motherName: "",
+    address: "",
+    reference: "",
+    relation: "",
     amount: "",
+    shoshanType: "Shot",
+    date: "",
   });
-
   const router = useRouter();
 
   const mount = async () => {
@@ -35,10 +40,11 @@ const ShoshanDevShot = () => {
     mount();
   }, []);
   const handleSubmit = async (e: any) => {
+    //need to change database acording to scn sht
     e.preventDefault();
-
+    
     const result = await axios
-      .post("http://localhost:3000/api/Payments/createPayment", {
+      .post("http://localhost:3000/api/Payments/createShoshanPayment", {
         pay,
       })
       .then((res) => {
@@ -48,7 +54,6 @@ const ShoshanDevShot = () => {
         console.log(err);
       });
     mount();
-    router.reload();
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -77,7 +82,8 @@ const ShoshanDevShot = () => {
         <h3 className="alert alert-primary">শ্মশান উন্নয়ন (সৎকার)</h3>
         <h3>অনুদান প্রাপ্তি রসিদ - </h3>
         
-        <Form className="py-4">
+        <Form className="py-4"
+        onSubmit={handleSubmit}>
           <Row>
             <Col md={6}>
               <Form.Control
@@ -150,7 +156,12 @@ const ShoshanDevShot = () => {
             </Col>
           </Row>
         </Form>
-
+        <h3>অনুদান প্রাপ্তি রসিদ - </h3>
+        {payment?.map((i: Payment) => {
+          return (
+            <div key={i.id}>hello</div>
+          )
+        })}
         {/* eikhane CreateUser.txt er code */}
       </Container>
     </div>
@@ -231,58 +242,5 @@ const ShoshanDevShot = () => {
   //   </div>
   // );
 
-  // prev code
-  // return (
-  //     <div className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}>
-  //         <Container
-  //     className={`${commonStyles.commonForm} ${styles.minHeight35} py-3`}
-  //   >
-
-  //     <h3>ShoshanDevShot</h3>
-  //     <Row>
-  //             <div className="col-lg-5 col-md-12">
-  //             <form onSubmit={handleSubmit}>
-  //             <div>
-  //                 <label htmlFor="">পরিমাণ</label>
-  //                 <input type="text" onChange={handleChange} name="amount" placeholder="amount" />
-  //                 <br />
-  //                 <label htmlFor="">Date</label>
-  //                 <input type="Date" onChange={handleChange} name="date" placeholder="Date" />
-  //                 <br />
-  //                 <button type="submit" >Submit</button>
-  //             </div>
-  //         </form>
-  //             </div>
-  //             <div className="col">
-  //                 <table className="table">
-  //                     <thead>
-  //                         <tr>
-  //                             <th>Date</th>
-  //                             <th>Amount</th>
-
-  //                         </tr>
-  //                     </thead>
-  //                     <tbody>
-  //                 {payment?.map((p,i) => {
-  //                     return (
-  //                         <tr key={i}>
-  //                             <td>{p.date}</td>
-  //                             <td>{p.amount}</td>
-  //                         </tr>
-  //                     )
-  //                 })}
-  //                 <tr>
-  //                             <td><h5>Total</h5></td>
-  //                             <td> {totalAmount}</td>
-
-  //                 </tr>
-  //                     </tbody>
-  //                 </table>
-  //                 <button onClick={test}>test</button>
-  //             </div>
-  //             </Row>
-  //         </Container>
-  //     </div>
-  // );
-};
+ };
 export default ShoshanDevShot;

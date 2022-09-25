@@ -11,7 +11,7 @@ const CreateUser = () => {
     fatherName: "",
     nid: "",
     mobile: "",
-    dueMonth: "",
+    dueAmount: "",
     typeId: "",
   });
   const [userType, setUserType] = useState("");
@@ -36,7 +36,7 @@ const CreateUser = () => {
     const fatherName = user.fatherName.toString();
     const nid = user.nid.toString();
     const mobile = user.mobile.toString();
-    const dueMonth = user.dueMonth.toString();
+    const dueAmount = user.dueAmount.toString();
     const typeId = user.typeId.toString();
     console.log("userSubmitted : ", user);
     console.log("userType : ", userType);
@@ -45,7 +45,7 @@ const CreateUser = () => {
       fatherName,
       nid,
       mobile,
-      dueMonth,
+      dueAmount,
       userType,
       typeId,
     });
@@ -68,12 +68,16 @@ const CreateUser = () => {
     setUser({ ...user, [name]: value });
   };
   const mount = async () => {
-    await axios.get("http://localhost:3000/api/shop/unAssignedShop").then((res) => {
-      setShopID(res.data);
-    });
-    await axios.get("http://localhost:3000/api/home/unAssignedHome").then((res) => {
-      setHomeID(res.data);
-    });
+    await axios
+      .get("http://localhost:3000/api/shop/unAssignedShop")
+      .then((res) => {
+        setShopID(res.data);
+      });
+    await axios
+      .get("http://localhost:3000/api/home/unAssignedHome")
+      .then((res) => {
+        setHomeID(res.data);
+      });
   };
   const typeChange = (e: any) => {
     if (e.target.value == "Home") {
@@ -143,14 +147,14 @@ const CreateUser = () => {
                 <option value="Home">ঘর</option>
               </select>
             </Col>
-            <Col md={6}>
+            {/* <Col md={6}>
               <Form.Control
-                type="number"
+                type="month"
                 placeholder="মাস বাকি (Due month)"
-                name="dueMonth"
+                name="dueAmount"
                 onBlur={handleChange}
               />
-            </Col>
+            </Col> */}
           </Row>
 
           <Row>

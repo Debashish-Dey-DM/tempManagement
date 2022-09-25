@@ -22,7 +22,9 @@ const TotalReport = () => {
     e.preventDefault();
 
     const result = await axios
-      .get(`http://localhost:3000/api/report/totalreport/${dates.from}/${dates.to}`)
+      .get(
+        `http://localhost:3000/api/report/totalreport/${dates.from}/${dates.to}`
+      )
       .then((res) => {
         setExpenses(res.data?.expenses);
         setPayments(res.data?.payments);
@@ -86,25 +88,25 @@ const TotalReport = () => {
         <Row className={`${styles.scroll} text-center`}>
           {/* income */}
           <Col md={6}>
-            <TotalIncome payments={payments}/>
+            <TotalIncome payments={payments} totalIncome={totalIncome} />
           </Col>
           {/* expense */}
           <Col md={6}>
-            <TotalExpense expenses={expenses} />
+            <TotalExpense expenses={expenses} totalExpense={totalExpense} />
           </Col>
         </Row>
 
-        <Row className={`${styles.border} mb-4`}>
-          <Col md={6} className="text-center">
-            <h5>মোট আয়: {totalIncome}</h5>
+        <Row className={`${styles.border} mb-4 mt-4`}>
+          <Col md={4} className="text-center">
+            <h5>মোট আয়: {totalIncome.toLocaleString("bn-BD")}</h5>
           </Col>
-          <Col md={6} className="text-center">
-            {" "}
-            <h5>মোট ব্যয়: {totalExpense}</h5>
+          <Col md={4} className="text-center">
+            <h5>মোট ব্যয়: {totalExpense.toLocaleString("bn-BD")}</h5>
+          </Col>
+          <Col md={4} className="text-center">
+            <h5>নিট এমাউন্ট : {total.toLocaleString("bn-BD")}</h5>
           </Col>
         </Row>
-
-        <h5>নিট এমাউন্ট : {total}</h5>
       </Container>
     </div>
   );

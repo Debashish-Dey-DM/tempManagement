@@ -10,7 +10,9 @@ const ShopOwner = () => {
   const router = useRouter();
   const [user, setUser] = useState<UserExtended[]>();
   const mount = async () => {
-    const result = await axios.get(`http://localhost:3000/api/user/getAllShopOwner`);
+    const result = await axios.get(
+      `http://localhost:3000/api/user/getAllShopOwner`
+    );
     setUser(result.data);
   };
   useEffect(() => {
@@ -29,7 +31,7 @@ const ShopOwner = () => {
             <th scope="col">মোবাইল নাম্বার</th>
             <th scope="col">এন.আই.ডি/NID</th>
             <th scope="col">ছবি</th>
-            <th scope="col">মাস বাকি</th>
+            
             <th scope="col">Edit</th>
             <th scope="col">Payment</th>
           </tr>
@@ -45,7 +47,7 @@ const ShopOwner = () => {
                 <td>{u?.mobiile}</td>
                 <td>{u?.nid}</td>
                 <td>{u?.image}</td>
-                <td>{u?.dueMonth}</td>
+                
                 <td>
                   <Button
                     variant="dark"

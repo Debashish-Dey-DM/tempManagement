@@ -1,26 +1,26 @@
 import { Payment } from "@prisma/client";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
-import styles from "../Payments/ShoshanDevDaho.module.css";
-
-const TempDev = () => {
+import styles from "./ShoshanDevDaho.module.css";
+const SosanSomadhi = () => {
   const [payment, setPayment] = useState<Payment[]>();
   const [totalAmount, setTotalAmount] = useState(0);
   const [pay, setPay] = useState({
-    type: "TempDev",
+    type: "SosanSomadhi",
     date: "",
     amount: "",
   });
-    const mount = async () => {
-    await axios
-      .get("http://localhost:3000/api/Expenses/getPayments/TempDev")
-      .then((res) => {
-        //   console.log(res.data[3]?.date.toLocaleDateString("en-US"));
-        //   var today = new Date(res.data[3]?.date);
 
-        console.log(new Date(res.data[3]?.date).toLocaleDateString("en-US"));
+  const router = useRouter();
+
+  const mount = async () => {
+    await axios
+      .get("http://localhost:3000/api/Payments/getPayments/SosanSomadhi")
+      .then((res) => {
+        console.log(res.data);
         setPayment(res.data);
         let arr: number[] = [];
         res.data?.map((item: Payment) => {
@@ -37,7 +37,9 @@ const TempDev = () => {
     e.preventDefault();
 
     const result = await axios
-      .post("http://localhost:3000/api/Expenses/createExpense", { pay })
+      .post("http://localhost:3000/api/Payments/createPayment", {
+        pay,
+      })
       .then((res) => {
         console.log(res.data);
       })
@@ -45,6 +47,7 @@ const TempDev = () => {
         console.log(err);
       });
     mount();
+    router.reload();
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -57,14 +60,25 @@ const TempDev = () => {
       setPay({ ...pay, [name]: value });
     }
   };
- return (
+  const test = () => {
+    let arr: number[] = [];
+    payment?.map((item: Payment) => {
+      arr.push(item.amount);
+    });
+
+    const sum = arr.reduce((a, b) => a + b, 0);
+    console.log(sum);
+  };
+
+  return (
     <div
       className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
     >
       <Container
         className={`${commonStyles.commonForm} ${styles.minHeight35} py-3`}
       >
-        <h3 className="mb-4 alert alert-primary">মন্দির উন্নয়ন ও সংস্কারমূলক কাজ</h3>
+        <h3 className="mb-4 alert alert-primary">শ্মশানস্থ সমাধি ও অন্যান্য</h3>
+
         <Row className="row">
           <div className="col-lg-5 col-md-12">
             <form onSubmit={handleSubmit} className="w-50 ">
@@ -132,4 +146,4 @@ const TempDev = () => {
     </div>
   );
 };
-export default TempDev;
+export default SosanSomadhi;
