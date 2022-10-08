@@ -1,0 +1,7 @@
+.dataTable{
+    color: red
+}
+.dataTable .rdt_TableHead{
+    font-weight: bold;
+    color: red !important;
+}
