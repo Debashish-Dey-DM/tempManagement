@@ -36,3 +36,8 @@
     border: none;
     background-color:black !important;
 }
+
+.maxHeightScroll{
+    max-height: 250px;
+    overflow-y: scroll;
+}

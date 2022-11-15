@@ -1,98 +1,146 @@
-import axios from "axios";
 import { Payment } from "@prisma/client";
-import React, { useState } from "react";
+import axios from "axios";
+import { useRef, useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import ReactToPrint from "react-to-print";
+import commonStyles from "../../styles/common.module.css";
 const Payment = () => {
-    const [dates, setDates] = useState({
-        from: "",
-        to: "",
-    })
-    const [type,setType] = useState("");
-    const [total,setTotal] = useState(0);
-    const [payments, setPayments] = useState<Payment[]>();
+  const [dates, setDates] = useState({
+    from: "",
+    to: "",
+  });
+  const [type, setType] = useState("");
+  const [total, setTotal] = useState(0);
+  const [payments, setPayments] = useState<Payment[]>();
+  const [show, setShow] = useState(false);
+  console.log("show : ", show);
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-        
-        const result = await axios.get(`http://localhost:3000/api/report/payments/${dates.from}/${dates.to}/${type}`,).then(res => {
-            setPayments(res.data?.payments);
-            setTotal(res.data?.total);
-            console.log(res.data);
-            
-        })
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setShow(true);
 
-    }
-    const handleChange = (e: any) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        const newDate = new Date(value)
-        const updatedDate = newDate.toISOString();
-        setDates({ ...dates, [name]: updatedDate })
-        
-        
+    const result = await axios
+      .get(
+        `http://localhost:3000/api/report/payments/${dates.from}/${dates.to}/${type}`
+      )
+      .then((res) => {
+        setPayments(res.data?.payments);
+        setTotal(res.data?.total);
+        console.log(res.data);
+      });
+  };
+  const handleChange = (e: any) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    const newDate = new Date(value);
+    const updatedDate = newDate.toISOString();
+    setDates({ ...dates, [name]: updatedDate });
+  };
 
-    }
-    return (
-        <div>
-            <div className="container-xxl">
-                <form onSubmit={handleSubmit}>
-                    <div className="row">
-                    <div className="col">
-                            <h1>Here will be the list</h1>
-                            <select name="category"  onClick={(e:any)=>setType(e.target.value)}>
-                                <option value="" disabled  selected>Select</option>
-                                <option value="ShoshanDevShot">ShoshanDevShot</option>
-                                <option value="ShoshanDevDaho">ShoshanDevDaho</option>
-                                <option value="newCategory">newCategory</option>
-                                <option value="newCategory">newCategory</option>
-                                <option value="newCategory">newCategory</option>
-                                <option value="newCategory">newCategory</option>
-                                <option value="newCategory">newCategory</option>
-                                <option value="newCategory">newCategory</option>
-                                <option value="newCategory">newCategory</option>
-                                
-                            </select>
-                    </div>
-                    <div className="col-8">
-                            <h5><button type="submit">Generate</button></h5>
-                            <h4>Type: {type}</h4>
-                            <table className="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Type</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {payments?.map((p, i) => {
-                                    return (
-                                        <tr key={i}>
-                                            <td>{p?.date}</td>
-                                            <td>{p?.amount}</td>
-                                            <td>{p?.type}</td>
-                                        </tr>
-                                     )
-                                 })}
-                                </tbody>
-                            </table>
-                            
-                            <h4>Total: {total}</h4>
-                    </div>
-                    <div className="col">
-                    <h5>
-                        FROM
-                    </h5>
-                    <input type="Date" name="from" onChange={handleChange} />
-                    <h5>
-                        TO
-                    </h5>
-                     <input type="Date" name="to" onChange={handleChange} />
-                    </div>
-                </div>
-                </form>
-                
-            </div>
-        </div>
-    )
-}
+  const componentRef = useRef();
+
+  return (
+    <div
+      className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
+    >
+      <Container className={`${commonStyles.commonForm} py-5`}>
+        <form onSubmit={handleSubmit}>
+          <Row className="mb-5">
+            <Col md={3}>
+              <h5>রিপোর্টের ধরণ</h5>
+              <select
+                required
+                name="category"
+                onClick={(e: any) => setType(e.target.value)}
+              >
+                <option value="">Select</option>
+                <option value="ShoshanDevDaho">শ্মশান উন্নয়ন (দাহ সনদ)</option>
+                <option value="ShoshanDevShot">শ্মশান উন্নয়ন (সৎকার)</option>
+                <option>দোকান ভাড়া</option>
+                <option>আবাসন ঘর ভাড়া</option>
+                <option>দিঘী লিজ বাবদ</option>
+                <option>মন্দির দান বাক্স হতে</option>
+                <option>সরকারি-বেসরকারি দান-অনুদান</option>
+                <option>দোকান-ঘর-অন্যান্য ক্রয়-বিক্রয় বাবদ</option>
+                <option>শ্মশানস্থ সমাধি ও অন্যান্য </option>
+                <option>জিনিস পত্রাদি প্রাপ্তি </option>
+                <option>
+                  কমিটির কার্যনির্বাহী সদস্যদের চাঁদা (মাসিক ভিত্তিতে)
+                </option>
+                <option>স্যুভেনির, প্রকাশনা, স্মারক ও প্রচার</option>
+                <option>বিবিধ</option>
+                <option>
+                  অন্যান্য প্রাপ্তি (বিবাহ-শ্রাদ্ধাদি-ঘাটকাজ-নিয়মিত ভক্তের
+                  অনুদান)
+                </option>
+              </select>
+            </Col>
+
+            <Col md={5} className="d-flex ms-4">
+              <div className="mx-3">
+                <h5>তারিখঃ কত থেকে</h5>
+                <input
+                  type="Date"
+                  name="from"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="mx-3">
+                <h5>কত পর্যন্ত</h5>
+                <input type="Date" name="to" onChange={handleChange} required />
+              </div>
+            </Col>
+
+            <Col md={2}>
+              <h5>
+                <Button
+                  type="submit"
+                  variant="warning"
+                  className="fw-bold mt-4"
+                >
+                  Generate
+                </Button>
+              </h5>
+            </Col>
+          </Row>
+
+           <ReactToPrint
+                  trigger={() => <Button variant="secondary">Print income</Button>}
+                  content={() => componentRef.current}
+                  documentTitle="Payment Report"
+                  pageStyle="print"
+          />
+          
+          <div className={`${show ? "d-block" : "d-none"}`} ref={componentRef}>
+            <h4 className="mt-3">Type: {type}</h4>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {payments?.map((p, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{new Date(p.date).toLocaleDateString("bn-BD")}</td>
+                      <td>{p?.amount}</td>
+                      <td>{p?.type}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+
+            <h4>Total: {total}</h4>
+          </div>
+        </form>
+      </Container>
+    </div>
+  );
+};
 export default Payment;

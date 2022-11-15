@@ -2,8 +2,7 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button, Container } from "react-bootstrap";
-import commonStyles from "../../../styles/common.module.css";
+import { Button } from "react-bootstrap";
 
 const EditUser = () => {
   const [state, setState] = useState(false);
@@ -44,28 +43,16 @@ const EditUser = () => {
     const dueMonth = newuser.dueMonth
       ? newuser.dueMonth.toString()
       : user?.dueMonth.toString();
-    const userId = user?.user_id.toString();
-    const result = await axios.post(`http://localhost:3000/api/user/updateUser`, {
-      userId,
-      name,
-      fatherName,
-      nid,
-      mobile,
-      dueMonth,
-    });
   };
   return (
-    <div
-      className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}
-    >
+    <div>
       {state ? (
-        <Container>
-          <h3>Edit for {user?.name}</h3>
-          <form onSubmit={submitData}>
+        <>
+          <h1>Hello {user?.name}</h1>
+          <form action="">
             <label>Name</label>
             <input
               type="text"
-              name="name"
               placeholder={user?.name}
               onChange={handleChange}
             />
@@ -73,7 +60,6 @@ const EditUser = () => {
             <label>Fathers Name</label>
             <input
               type="text"
-              name="fatherName"
               placeholder={user?.fatherName}
               onChange={handleChange}
             />
@@ -81,7 +67,6 @@ const EditUser = () => {
             <label>Mobile</label>
             <input
               type="text"
-              name="mobile"
               placeholder={user?.mobiile + ""}
               onChange={handleChange}
             />
@@ -89,7 +74,6 @@ const EditUser = () => {
             <label>NID</label>
             <input
               type="text"
-              name="nid"
               placeholder={user?.nid + ""}
               onChange={handleChange}
             />
@@ -97,14 +81,13 @@ const EditUser = () => {
             <label>Due Month</label>
             <input
               type="text"
-              name="dueMonth"
               placeholder={user?.dueMonth + ""}
               onChange={handleChange}
             />
             <br />
             <button type="submit">Submit</button>
           </form>
-        </Container>
+        </>
       ) : (
         <div className="d-flex align-items-center justify-content-center mt-5">
           <div className="text-center">

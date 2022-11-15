@@ -12,59 +12,73 @@ const Dashboard = () => {
            {/* --------- dropdown for Create / assign ----------- */}
            <Dropdown className="my-1">
             <Dropdown.Toggle id="dropdown-basic">
-              Create / Assign
+              নতুন তৈরি
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href={"/User/CreateUser"}>Create User</Dropdown.Item>
-              <Dropdown.Item href={"/Shop/CreateShop"}>Create Shop</Dropdown.Item>
-              <Dropdown.Item href={"/Home/CreateHome"}>Create Home</Dropdown.Item>
-              <Dropdown.Item href={"/User/AssignUser"}>Assign User</Dropdown.Item>
+              <Dropdown.Item href={"/User/CreateUser"}>ইউজার তৈরী</Dropdown.Item>
+              <Dropdown.Item href={"/Shop/CreateShop"}>দোকান তৈরি</Dropdown.Item>
+              <Dropdown.Item href={"/Home/CreateHome"}>ঘর তৈরি</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
           <Link href="/User/ShopOwner">
-            <a> Dokan varatiyar talika</a>
+            <a>দোকান ভাড়াটিয়ার তালিকা</a>
           </Link>
-          <Link href="/User/HomeOwner">Abashon varatiyar talika</Link>
+          <Link href="/User/HomeOwner">ঘর ভাড়াটিয়ার তালিকা</Link>
           {/* --------- dropdown for income ----------- */}
           <Dropdown className="my-1">
             <Dropdown.Toggle id="dropdown-basic">
-              Payment / aay
+             আয় / Payment
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href={"/Payments/ShoshanDevDaho"}>ShoshanDevDaho</Dropdown.Item>
-              <Dropdown.Item href={"/Payments/ShoshanDevShot"}>ShoshanDevShot</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">payment *</Dropdown.Item>
+            <Dropdown.Menu className={`${style.maxHeightScroll}`}>
+              <Dropdown.Item href={"/Payments/ShoshanDevDaho"}>শ্মশান উন্নয়ন (দাহ সনদ)</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/ShoshanDevShot"}>শ্মশান উন্নয়ন (সৎকার)</Dropdown.Item>
+              <Dropdown.Item href={"/Payments/Dighi"}>দিঘী লিজ বাবদ</Dropdown.Item>
+              <Dropdown.Item href="#">মন্দির দান বাক্স হতে</Dropdown.Item>
+              <Dropdown.Item href="#">সরকারি-বেসরকারি দান-অনুদান</Dropdown.Item>
+              <Dropdown.Item href="#">দোকান-ঘর-অন্যান্য ক্রয়-বিক্রয় বাবদ</Dropdown.Item>
+              <Dropdown.Item href="#">শ্মশানস্থ সমাধি ও অন্যান্য </Dropdown.Item>
+              <Dropdown.Item href="#">জিনিস পত্রাদি প্রাপ্তি </Dropdown.Item>
+              <Dropdown.Item href="#">কমিটির কার্যনির্বাহী সদস্যদের চাঁদা (মাসিক ভিত্তিতে) </Dropdown.Item>
+              <Dropdown.Item href="#">স্যুভেনির, প্রকাশনা, স্মারক ও প্রচার</Dropdown.Item>
+              <Dropdown.Item href="#">বিবিধ</Dropdown.Item>
+              <Dropdown.Item href="#"> অন্যান্য প্রাপ্তি (বিবাহ-শ্রাদ্ধাদি-ঘাটকাজ-নিয়মিত ভক্তের অনুদান)</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           {/* --------- dropdown for spend ----------- */}
           <Dropdown className="mb-1">
             <Dropdown.Toggle id="dropdown-basic">
-              bey
+              ব্যায়
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
-              <Dropdown.Item href="#/action-1">spend *</Dropdown.Item>
+            <Dropdown.Menu className={`${style.maxHeightScroll}`}>
+              <Dropdown.Item href="#/action-1">মন্দির উন্নয়ন ও সংস্কারমূলক কাজ</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">শ্মশান উন্নয়ন ও সংস্কারমূলক কাজ</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">মন্দির কার্যে সংশ্লিষ্টদের সম্মানি-বেতন-ভাতাদি</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">দৈনিক/সাপ্তাহিক পূজা</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">আপ্যায়ন সভা ও বিশেষ প্রার্থনা ভোগ ইত্যাদি খরচ</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">প্রশাসনিক ও আইন সংক্রান্ত খরচ</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">মন্দির সংশ্লিষ্ট প্রচার প্রকাশনা ও যাতায়াত বাবদ খরচাদি</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">অফিস স্টেশনারী-খাতা-কলম</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">মন্দির হতে বিভিন্ন সেবামূলক, সমাজ কল্যাণ কাজ এবং দান অনুদান</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">বিদ্যুৎ, গ্যাস, টেলিফোন ও অন্যান্য বিল</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">বিবিধ</Dropdown.Item>
+              <Dropdown.Item href="#/action-1">বিশেষ অনুষ্ঠান সমূহ</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
-          <Link href={"/Report/Payment"}>
-            <a> Report</a>
-          </Link>
-          <Link href="/">
+          <Dropdown className="my-1">
+            <Dropdown.Toggle id="dropdown-basic">
+              রিপোর্ট
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href={"/Report/Expense"}>খরচ</Dropdown.Item>
+              <Dropdown.Item href={"/Report/Payment"}> আয়</Dropdown.Item>
+              <Dropdown.Item href={"/Report/Total"}>টোটাল</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          {/* <Link href="/">
             <a> User </a>
-          </Link>
+          </Link> */}
         </div>
       </div>
       {/* <nav className="navbar navbar-expand-lg navbar-light bg-light">
