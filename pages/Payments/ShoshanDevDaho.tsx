@@ -224,6 +224,7 @@ const ShoshanDevDaho = () => {
             fixedHeader
             fixedHeaderScrollHeight="350px"
             customStyles={customStyles}
+            
           />
         </Container>
     </div>
