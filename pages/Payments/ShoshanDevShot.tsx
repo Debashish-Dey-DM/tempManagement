@@ -3,12 +3,14 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
+import DataTable from "react-data-table-component";
 import commonStyles from "../../styles/common.module.css";
+import dtStyle from "./sosan.module.css";
 
 const ShoshanDevShot = () => {
   const [payment, setPayment] = useState<Payment[]>();
   const [totalAmount, setTotalAmount] = useState(0);
-   const [pay, setPay] = useState({
+  const [pay, setPay] = useState({
     type: "ShoshanDevShot",
     name: "",
     fatherName: "",
@@ -21,7 +23,35 @@ const ShoshanDevShot = () => {
     date: "",
   });
   const router = useRouter();
-
+  const columns = [
+    {
+      name: "তারিখ",
+      selector: (row: any) =>
+        new Date(row.date).toLocaleDateString("en-us", {
+          day: "numeric",
+          year: "numeric",
+          month: "short",
+        }),
+      sortable: true,
+    },
+    {
+      name: "পরিমান",
+      selector: (row: any) => row.amount,
+    },
+  ];
+  const customStyles = {
+    rows: {
+      style: {
+        fontSize: "15px",
+      },
+    },
+    headCells: {
+      style: {
+        fontWeight: "bold",
+        fontSize: "15px",
+      },
+    },
+  };
   const mount = async () => {
     await axios
       .get("http://localhost:3000/api/Payments/getPayments/ShoshanDevShot")
@@ -42,7 +72,7 @@ const ShoshanDevShot = () => {
   const handleSubmit = async (e: any) => {
     //need to change database acording to scn sht
     e.preventDefault();
-    
+
     const result = await axios
       .post("http://localhost:3000/api/Payments/createShoshanPayment", {
         pay,
@@ -76,96 +106,112 @@ const ShoshanDevShot = () => {
     console.log(sum);
   };
 
-  return(
-    <div className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}>
+  return (
+    <div>
+      <div
+        className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
+      >
+        <Container className={`${commonStyles.commonForm} pt-3`}>
+          <h3 className="alert alert-primary">শ্মশান উন্নয়ন (সৎকার)</h3>
+          <h3>অনুদান প্রাপ্তি রসিদ - </h3>
+
+          <Form className="py-4" onSubmit={handleSubmit}>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="নাম (শবদেহ)"
+                  name="name"
+                  onBlur={handleChange}
+                  required
+                />
+              </Col>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="পিতা/স্বামীর নাম"
+                  name="fatherName"
+                  onBlur={handleChange}
+                />
+              </Col>
+            </Row>
+
+            <Row className="my-4">
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="মাতার নাম"
+                  name="motherName"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="ঠিকানা"
+                  name="address"
+                  onBlur={handleChange}
+                />
+              </Col>
+            </Row>
+
+            <Row className="my-4">
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="পক্ষে (প্রতিনিধি)"
+                  name="pokkhe"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="মুখাগ্নিকারী/সম্পর্ক"
+                  name="relation"
+                  onBlur={handleChange}
+                />
+              </Col>
+            </Row>
+
+            <Row className="my-4">
+              <Col md={6}>
+                <Form.Control
+                  type="number"
+                  placeholder="উন্নয়ন ফি বাবদ অনুদান"
+                  name="amount"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={6}>
+                <Form.Control
+                  type="date"
+                  placeholder="Date"
+                  name="date"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={6}>
+                <Button type="submit">Submit</Button>
+              </Col>
+            </Row>
+          </Form>
+        </Container>
+      </div>
       <Container className={`${commonStyles.commonForm} pt-3`}>
-        <h3 className="alert alert-primary">শ্মশান উন্নয়ন (সৎকার)</h3>
-        <h3>অনুদান প্রাপ্তি রসিদ - </h3>
-        
-        <Form className="py-4"
-        onSubmit={handleSubmit}>
-          <Row>
-            <Col md={6}>
-              <Form.Control
-                type="text"
-                placeholder="নাম (শবদেহ)"
-                name="name"
-                onBlur={handleChange}
-                required
-              />
-            </Col>
-            <Col md={6}>
-              <Form.Control
-                type="text"
-                placeholder="পিতা/স্বামীর নাম"
-                name="fatherName"
-                onBlur={handleChange}
-              />
-            </Col>
-          </Row>
-
-          <Row className="my-4">
-            <Col md={6}>
-              <Form.Control
-                type="text"
-                placeholder="মাতার নাম"
-                name="motherName"
-                onBlur={handleChange}
-              />
-            </Col>
-            <Col md={6}>
-              <Form.Control
-                type="text"
-                placeholder="ঠিকানা"
-                name="address"
-                onBlur={handleChange}
-              />
-            </Col>
-          </Row>
-          
-          <Row className="my-4">
-            <Col md={6}>
-              <Form.Control
-                type="text"
-                placeholder="পক্ষে (প্রতিনিধি)"
-                name="pokkhe"
-                onBlur={handleChange}
-              />
-            </Col>
-            <Col md={6}>
-              <Form.Control
-                type="text"
-                placeholder="মুখাগ্নিকারী/সম্পর্ক"
-                name="relation"
-                onBlur={handleChange}
-              />
-            </Col>
-          </Row>
-
-          <Row className="my-4">
-            <Col md={6}>
-              <Form.Control
-                type="number"
-                placeholder="উন্নয়ন ফি বাবদ অনুদান"
-                name="amount"
-                onBlur={handleChange}
-              />
-            </Col>
-            <Col md={6}>
-              <Button type="submit">Submit</Button>
-            </Col>
-          </Row>
-        </Form>
-        <h3>অনুদান প্রাপ্তি রসিদ - </h3>
-        {payment?.map((i: Payment) => {
-          return (
-            <div key={i.id}>hello</div>
-          )
-        })}
-        {/* eikhane CreateUser.txt er code */}
+        <DataTable
+          className={dtStyle.dataTable}
+          columns={columns}
+          data={payment}
+          highlightOnHover
+          pagination
+          fixedHeader
+          fixedHeaderScrollHeight="350px"
+          customStyles={customStyles}
+        />
       </Container>
     </div>
-  )
+  );
 
   // return (
   //   <div
@@ -241,6 +287,5 @@ const ShoshanDevShot = () => {
   //     </Container>
   //   </div>
   // );
-
- };
+};
 export default ShoshanDevShot;

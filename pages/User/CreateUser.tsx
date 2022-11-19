@@ -13,6 +13,7 @@ const CreateUser = () => {
     mobile: "",
     dueAmount: "",
     typeId: "",
+    clearUpto: "",
   });
   const [userType, setUserType] = useState("");
   const [typeName, setTypeName] = useState({
@@ -38,6 +39,7 @@ const CreateUser = () => {
     const mobile = user.mobile.toString();
     const dueAmount = user.dueAmount.toString();
     const typeId = user.typeId.toString();
+    const clearUpto = user.clearUpto.toString();
     console.log("userSubmitted : ", user);
     console.log("userType : ", userType);
     const res = await axios.post("http://localhost:3000/api/user/createUser", {
@@ -48,6 +50,7 @@ const CreateUser = () => {
       dueAmount,
       userType,
       typeId,
+      clearUpto,
     });
     if (res) {
       if (res.status === 200) {
@@ -180,6 +183,14 @@ const CreateUser = () => {
               ) : (
                 <h5> </h5>
               )}
+            </Col>
+            <Col md={5}>
+              <input
+                type="text"
+                placeholder="Payment clear up to"
+                name="clearUpto"
+                onBlur={handleChange}
+              />
             </Col>
             <Col md={5}>
               <Form.Control
