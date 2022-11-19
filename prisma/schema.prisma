@@ -17,8 +17,8 @@ model User {
   nid         Int
   mobiile     Int
   image       String?
-  dueMonth    Int?
-  paidAmount  Int
+  clearUpto    String?
+  paidAmount  Int?
   dueAmount   String?
   lastPayment DateTime?
   type        String    @default("shop") //shope,home

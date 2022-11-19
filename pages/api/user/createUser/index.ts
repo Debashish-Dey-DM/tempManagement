@@ -5,8 +5,8 @@ import prisma from "../../../../lib/prisma";
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.post(async (req, res) => {
   //const { name, fatherName, nid, mobile, dueAmount } = req.body;
-  //console.log(name, fatherName, nid, mobile, dueMonth);
-  const { name, fatherName, nid, mobile, dueAmount, userType, typeId } =
+  //console.log(name, fatherName, nid, mobile, clearUpto);
+  const { name, fatherName, nid, mobile, dueAmount, userType, typeId,clearUpto } =
     req.body;
 
   if (userType === "Shop") {
@@ -48,6 +48,7 @@ handler.post(async (req, res) => {
             nid: Number(nid),
             mobiile: Number(mobile),
             dueAmount: dueAmount,
+            clearUpto: clearUpto,
             paidAmount: 0,
             type: userType,
             shopId: Number(typeId),

@@ -56,8 +56,6 @@ const ShoshanDevDaho = () => {
     await axios
       .get("http://localhost:3000/api/Payments/getPayments/ShoshanDevDaho")
       .then((res) => {
-        //   console.log(res.data[3]?.date.toLocaleDateString("en-US"));
-        //   var today = new Date(res.data[3]?.date);
 
         console.log(new Date(res.data[3]?.date).toLocaleDateString("en-US"));
         setPayment(res.data);
@@ -90,14 +88,14 @@ const ShoshanDevDaho = () => {
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
-    setPay({ ...pay, [name]: value });
-    // if (name === "date") {
-    //   const newDate = new Date(value);
-    //   const updatedDate = newDate.toISOString();
-    //   setPay({ ...pay, [name]: updatedDate });
-    // } else {
-    //   setPay({ ...pay, [name]: value });
-    // }
+    if (name === "date") {
+      const newDate = new Date(value);
+      const updatedDate = newDate.toISOString();
+      setPay({ ...pay, [name]: updatedDate });
+    } else {
+      setPay({ ...pay, [name]: value });
+    }
+
   };
   const test = () => {
     let arr: number[] = [];
@@ -186,46 +184,33 @@ const ShoshanDevDaho = () => {
                 />
               </Col>
               <Col md={6}>
+                <Form.Control
+                  type="date"
+                  placeholder="Date"
+                  name="date"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={6}>
                 <Button type="submit">Submit</Button>
               </Col>
             </Row>
           </Form>
-
-          {/* eikhane CreateUser.txt er code */}
-          
-          {/* <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th className='ps-3'>তারিখ</th>
-              <th className='ps-3'>পরিমান</th>
-            </tr>
-          </thead>
-          <tbody>
-            {payment?.map((i: Payment) => {
-              return (
-                <tr key={i.id}>
-                  <td className='ps-3'>{new Date(i.date).toLocaleDateString("bn-BD")}</td>
-                  <td className='ps-3'>{i.amount.toLocaleString("bn-BD")}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table> */}
         </Container>
         <br />
       </div>
       <Container className={`${commonStyles.commonForm} pt-3`}>
         <DataTable
-            className={dtStyle.dataTable}
-            columns={columns}
-            data={payment}
-            highlightOnHover
-            pagination
-            fixedHeader
-            fixedHeaderScrollHeight="350px"
-            customStyles={customStyles}
-          />
-        </Container>
+          className={dtStyle.dataTable}
+          columns={columns}
+          data={payment}
+          highlightOnHover
+          pagination
+          fixedHeader
+          fixedHeaderScrollHeight="350px"
+          customStyles={customStyles}
+        />
+      </Container>
     </div>
   );
 };
