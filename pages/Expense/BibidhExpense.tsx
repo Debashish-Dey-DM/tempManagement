@@ -13,22 +13,16 @@ const BibidhExpense = () => {
     date: "",
     amount: "",
   });
-    const mount = async () => {
-    await axios
-      .get("http://localhost:3000/api/Expenses/getPayments/BibidhExpense")
-      .then((res) => {
-        //   console.log(res.data[3]?.date.toLocaleDateString("en-US"));
-        //   var today = new Date(res.data[3]?.date);
-
-        console.log(new Date(res.data[3]?.date).toLocaleDateString("en-US"));
-        setPayment(res.data);
-        let arr: number[] = [];
-        res.data?.map((item: Payment) => {
-          arr.push(item.amount);
-        });
-        const sum = arr.reduce((a, b) => a + b, 0);
-        setTotalAmount(sum);
+  const mount = async () => {
+    await axios.get("/api/Expenses/getPayments/BibidhExpense").then((res) => {
+      setPayment(res.data);
+      let arr: number[] = [];
+      res.data?.map((item: Payment) => {
+        arr.push(item.amount);
       });
+      const sum = arr.reduce((a, b) => a + b, 0);
+      setTotalAmount(sum);
+    });
   };
   useEffect(() => {
     mount();
@@ -37,14 +31,13 @@ const BibidhExpense = () => {
     e.preventDefault();
 
     const result = await axios
-      .post("http://localhost:3000/api/Expenses/createExpense", { pay })
-      .then((res) => {
-        console.log(res.data);
-      })
+      .post("/api/Expenses/createExpense", { pay })
+      .then((res) => {})
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
     mount();
+    location.reload();
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -57,7 +50,7 @@ const BibidhExpense = () => {
       setPay({ ...pay, [name]: value });
     }
   };
- return (
+  return (
     <div
       className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
     >
@@ -75,6 +68,7 @@ const BibidhExpense = () => {
                   <input
                     type="text"
                     placeholder="Amount"
+                    required
                     name="amount"
                     className="form-control"
                     onChange={handleChange}
@@ -85,6 +79,7 @@ const BibidhExpense = () => {
                   <input
                     type="Date"
                     placeholder="Dates"
+                    required
                     name="date"
                     className="form-control"
                     onChange={handleChange}

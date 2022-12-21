@@ -1,18 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../lib/prisma";
 //import controller
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
-handler.post(
+handler.get(
     async (req, res) => {
-        const { rate } = req.body
-        const shop = await prisma.shop.create({
-            data: {
-                ratePerMonth: Number(rate),
-
+        
+        
+        const shoshan = await prisma.shoshan.findMany(
+           {
+            include: {
+                payment: true
             }
-        })
-        res.json(shop)
+           }
+        );
+        res.json(shoshan);
+        
     }
 )
 export default handler;

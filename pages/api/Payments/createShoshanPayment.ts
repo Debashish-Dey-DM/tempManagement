@@ -27,6 +27,9 @@ handler.post(async (req, res) => {
       amount: Number(pay.amount),
     },
   });
-  return res.json(payment);
+  return res.json({
+    payement: payment,
+    shoshan: payment2,
+  });
 });
 export default handler;

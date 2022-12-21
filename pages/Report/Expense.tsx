@@ -10,66 +10,61 @@ const Payment = () => {
     to: "",
   });
   const [type, setType] = useState("");
-  const [banglaType, setBanglaType] = useState("") // for printing bangla type
+  const [banglaType, setBanglaType] = useState(""); // for printing bangla type
   const [total, setTotal] = useState(0);
   const [expenses, setExpenses] = useState<Payment[]>();
   const [show, setShow] = useState(false);
-  console.log('******ex type : ',type);
-  console.log('******bangla : ', banglaType);
 
-  useEffect(() =>{
-    if(type !==""){
-      if(type === "TempDev"){
-        setBanglaType("মন্দির উন্নয়ন")
+  useEffect(() => {
+    if (type !== "") {
+      if (type === "TempDev") {
+        setBanglaType("মন্দির উন্নয়ন");
       }
-      if(type === "FuneralDev"){
-        setBanglaType("শ্মশান উন্নয়ন")
+      if (type === "FuneralDev") {
+        setBanglaType("শ্মশান উন্নয়ন");
       }
-      if(type === "EmployeeSalary"){
-        setBanglaType("সম্মানি-বেতন-ভাতাদি")
+      if (type === "EmployeeSalary") {
+        setBanglaType("সম্মানি-বেতন-ভাতাদি");
       }
-      if(type === "DailyPuja"){
-        setBanglaType("দৈনিক/সাপ্তাহিক পূজা ভাড়া")
+      if (type === "DailyPuja") {
+        setBanglaType("দৈনিক/সাপ্তাহিক পূজা ভাড়া");
       }
-      if(type === "Appayon"){
-        setBanglaType(" আপ্যায়ন সভা ও বিশেষ প্রার্থনা")
+      if (type === "Appayon") {
+        setBanglaType(" আপ্যায়ন সভা ও বিশেষ প্রার্থনা");
       }
-      if(type === "Prosasonik"){
-        setBanglaType("প্রশাসনিক ও আইন")
+      if (type === "Prosasonik") {
+        setBanglaType("প্রশাসনিক ও আইন");
       }
-      if(type === "ProcharProkashona"){
-        setBanglaType("প্রচার প্রকাশনা ও যাতায়াত")
+      if (type === "ProcharProkashona") {
+        setBanglaType("প্রচার প্রকাশনা ও যাতায়াত");
       }
-      if(type === "OfficeCost"){
-        setBanglaType("অফিস স্টেশনারী")
+      if (type === "OfficeCost") {
+        setBanglaType("অফিস স্টেশনারী");
       }
-      if(type === "SebamulokDan"){
-        setBanglaType("সমাজ কল্যাণ কাজ এবং দান অনুদান")
+      if (type === "SebamulokDan") {
+        setBanglaType("সমাজ কল্যাণ কাজ এবং দান অনুদান");
       }
-      if(type === "UtilityBill"){
-        setBanglaType("বিদ্যুৎ, গ্যাস, টেলিফোন")
+      if (type === "UtilityBill") {
+        setBanglaType("বিদ্যুৎ, গ্যাস, টেলিফোন");
       }
-      if(type === "BibidhExpense"){
-        setBanglaType("বিবিধ")
+      if (type === "BibidhExpense") {
+        setBanglaType("বিবিধ");
       }
-      if(type === "SpecialFunction"){
-        setBanglaType("বিশেষ অনুষ্ঠান")
+      if (type === "SpecialFunction") {
+        setBanglaType("বিশেষ অনুষ্ঠান");
       }
     }
-  },[type])
+  }, [type]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setShow(true);
 
     const result = await axios
-      .get(
-        `http://localhost:3000/api/report/expenses/${dates.from}/${dates.to}/${type}`
-      )
+      .get(`/api/report/expenses/${dates.from}/${dates.to}/${type}`)
       .then((res) => {
         setExpenses(res.data?.payments);
         setTotal(res.data?.total);
-        console.log(res.data);
       });
   };
   const handleChange = (e: any) => {
@@ -99,7 +94,9 @@ const Payment = () => {
               >
                 <option value="">Select</option>
                 <option value="TempDev">মন্দির উন্নয়ন ও সংস্কারমূলক কাজ</option>
-                <option value="FuneralDev">শ্মশান উন্নয়ন ও সংস্কারমূলক কাজ</option>
+                <option value="FuneralDev">
+                  শ্মশান উন্নয়ন ও সংস্কারমূলক কাজ
+                </option>
                 <option value="EmployeeSalary">
                   মন্দির কার্যে সংশ্লিষ্টদের সম্মানি-বেতন-ভাতাদি
                 </option>
@@ -107,7 +104,9 @@ const Payment = () => {
                 <option value="Appayon">
                   আপ্যায়ন সভা ও বিশেষ প্রার্থনা ভোগ ইত্যাদি খরচ
                 </option>
-                <option value="Prosasonik">প্রশাসনিক ও আইন সংক্রান্ত খরচ</option>
+                <option value="Prosasonik">
+                  প্রশাসনিক ও আইন সংক্রান্ত খরচ
+                </option>
                 <option value="ProcharProkashona">
                   মন্দির সংশ্লিষ্ট প্রচার প্রকাশনা ও যাতায়াত বাবদ খরচাদি
                 </option>
@@ -115,7 +114,9 @@ const Payment = () => {
                 <option value="SebamulokDan">
                   মন্দির হতে বিভিন্ন সেবামূলক, সমাজ কল্যাণ কাজ এবং দান অনুদান
                 </option>
-                <option value="UtilityBill">বিদ্যুৎ, গ্যাস, টেলিফোন ও অন্যান্য বিল</option>
+                <option value="UtilityBill">
+                  বিদ্যুৎ, গ্যাস, টেলিফোন ও অন্যান্য বিল
+                </option>
                 <option value="BibidhExpense">বিবিধ</option>
                 <option value="SpecialFunction">বিশেষ অনুষ্ঠান সমূহ</option>
               </select>
@@ -159,12 +160,12 @@ const Payment = () => {
               documentTitle={`ব্যায়ের রিপোর্ট - ${banglaType}`}
               pageStyle="print"
             />
-            <table className="table table-striped">
+            <table className="table table-striped mt-3 ">
               <thead>
                 <tr>
-                  <th scope="col">Date</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Type</th>
+                  <th scope="col">তারিখ</th>
+                  <th scope="col">পরিমাণ</th>
+                  <th scope="col">ব্যায়ের ধরন</th>
                 </tr>
               </thead>
               <tbody>
@@ -186,13 +187,15 @@ const Payment = () => {
 
             <div style={{ display: "none" }}>
               <div ref={componentRef}>
-                <h3 className='mt-3 text-center'>শ্রী শ্রী বরদেস্বরী কালি মাতা মন্দির</h3>
-                <table className="table table-striped">
+                <h3 className="mt-3 text-center">
+                  শ্রী শ্রী বরদেস্বরী কালি মাতা মন্দির
+                </h3>
+                <table className="table table-striped mt-3 ">
                   <thead>
                     <tr>
-                      <th scope="col">Date</th>
-                      <th scope="col">Amount</th>
-                      <th scope="col">Type</th>
+                      <th scope="col">তারিখ</th>
+                      <th scope="col">পরিমাণ</th>
+                      <th scope="col">ব্যায়ের ধরন</th>
                     </tr>
                   </thead>
                   <tbody>

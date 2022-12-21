@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Button } from "react-bootstrap";
 import ReactToPrint from "react-to-print";
 
-const TotalExpense = ({ expenses, totalExpense }: any) => {
+const TotalExpense = ({ expenseProps, totalExpense }: any) => {
   const chk = (p: any) => {
     if (p) {
       if (p.type === "TempDev") {
@@ -54,21 +54,19 @@ const TotalExpense = ({ expenses, totalExpense }: any) => {
         pageStyle="print"
       />
       <div ref={componentRef}>
-        <table className="table table-striped">
+        <table className="table table-striped mt-3 ">
           <thead>
             <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Type</th>
+              <th scope="col">ব্যায়ের ধরন</th>
+              <th scope="col">পরিমাণ</th>
             </tr>
           </thead>
           <tbody>
-            {expenses?.map((p: any, i: any) => {
-              return (
-                <tr key={i}>
-                  <td>{new Date(p?.date).toLocaleDateString("bn-BD")}</td>
+            {expenseProps?.map((p: any, i: any) => {
+               return (
+                p.amount>0 && <tr key={i}>
+                  <td>{p?.name}</td>
                   <td>{(p?.amount).toLocaleString("bn-BD")}</td>
-                  <td>{chk(p)}</td>
                 </tr>
               );
             })}

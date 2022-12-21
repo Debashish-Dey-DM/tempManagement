@@ -17,18 +17,15 @@ const CommitteeChada = () => {
   const router = useRouter();
 
   const mount = async () => {
-    await axios
-      .get("http://localhost:3000/api/Payments/getPayments/CommitteeChada")
-      .then((res) => {
-        console.log(res.data);
-        setPayment(res.data);
-        let arr: number[] = [];
-        res.data?.map((item: Payment) => {
-          arr.push(item.amount);
-        });
-        const sum = arr.reduce((a, b) => a + b, 0);
-        setTotalAmount(sum);
+    await axios.get("/api/Payments/getPayments/CommitteeChada").then((res) => {
+      setPayment(res.data);
+      let arr: number[] = [];
+      res.data?.map((item: Payment) => {
+        arr.push(item.amount);
       });
+      const sum = arr.reduce((a, b) => a + b, 0);
+      setTotalAmount(sum);
+    });
   };
   useEffect(() => {
     mount();
@@ -37,14 +34,12 @@ const CommitteeChada = () => {
     e.preventDefault();
 
     const result = await axios
-      .post("http://localhost:3000/api/Payments/createPayment", {
+      .post("/api/Payments/createPayment", {
         pay,
       })
-      .then((res) => {
-        console.log(res.data);
-      })
+      .then((res) => {})
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
     mount();
     router.reload();
@@ -59,15 +54,6 @@ const CommitteeChada = () => {
     } else {
       setPay({ ...pay, [name]: value });
     }
-  };
-  const test = () => {
-    let arr: number[] = [];
-    payment?.map((item: Payment) => {
-      arr.push(item.amount);
-    });
-
-    const sum = arr.reduce((a, b) => a + b, 0);
-    console.log(sum);
   };
 
   return (
@@ -90,6 +76,7 @@ const CommitteeChada = () => {
                   <input
                     type="text"
                     placeholder="Amount"
+                    required
                     name="amount"
                     className="form-control"
                     onChange={handleChange}
@@ -100,6 +87,7 @@ const CommitteeChada = () => {
                   <input
                     type="Date"
                     placeholder="Dates"
+                    required
                     name="date"
                     className="form-control"
                     onChange={handleChange}

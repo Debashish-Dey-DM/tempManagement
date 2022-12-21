@@ -13,14 +13,10 @@ const ProcharProkashona = () => {
     date: "",
     amount: "",
   });
-    const mount = async () => {
+  const mount = async () => {
     await axios
-      .get("http://localhost:3000/api/Expenses/getPayments/ProcharProkashona")
+      .get("/api/Expenses/getPayments/ProcharProkashona")
       .then((res) => {
-        //   console.log(res.data[3]?.date.toLocaleDateString("en-US"));
-        //   var today = new Date(res.data[3]?.date);
-
-        console.log(new Date(res.data[3]?.date).toLocaleDateString("en-US"));
         setPayment(res.data);
         let arr: number[] = [];
         res.data?.map((item: Payment) => {
@@ -37,14 +33,13 @@ const ProcharProkashona = () => {
     e.preventDefault();
 
     const result = await axios
-      .post("http://localhost:3000/api/Expenses/createExpense", { pay })
-      .then((res) => {
-        console.log(res.data);
-      })
+      .post("/api/Expenses/createExpense", { pay })
+      .then((res) => {})
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
     mount();
+    location.reload();
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -57,14 +52,16 @@ const ProcharProkashona = () => {
       setPay({ ...pay, [name]: value });
     }
   };
- return (
+  return (
     <div
       className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
     >
       <Container
         className={`${commonStyles.commonForm} ${styles.minHeight35} py-3`}
       >
-        <h3 className="mb-4 alert alert-primary">মন্দির সংশ্লিষ্ট প্রচার প্রকাশনা ও যাতায়াত বাবদ খরচাদি</h3>
+        <h3 className="mb-4 alert alert-primary">
+          মন্দির সংশ্লিষ্ট প্রচার প্রকাশনা ও যাতায়াত বাবদ খরচাদি
+        </h3>
         <Row className="row">
           <div className="col-lg-5 col-md-12">
             <form onSubmit={handleSubmit} className="w-50 ">
@@ -75,6 +72,7 @@ const ProcharProkashona = () => {
                   <input
                     type="text"
                     placeholder="Amount"
+                    required
                     name="amount"
                     className="form-control"
                     onChange={handleChange}
@@ -85,6 +83,7 @@ const ProcharProkashona = () => {
                   <input
                     type="Date"
                     placeholder="Dates"
+                    required
                     name="date"
                     className="form-control"
                     onChange={handleChange}

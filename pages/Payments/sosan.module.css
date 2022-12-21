@@ -5,3 +5,16 @@
     font-weight: bold;
     color: red !important;
 }
+
+.onudan{
+    padding: 5px 10px;
+    width: 25%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.onudanBG{
+    background: #efefef;
+}

@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
 
 const CreateHome = () => {
   const [newId, setNewId] = useState<string | undefined>();
   const router = useRouter();
   const mount = async () => {
-    const res = await axios.get("http://localhost:3000/api/home/GetNewHomeId");
+    const res = await axios.get("/api/home/GetNewHomeId");
     setNewId(res.data);
   };
   useEffect(() => {
@@ -17,38 +17,41 @@ const CreateHome = () => {
   const submitData = async (e: any) => {
     e.preventDefault();
     const rate = e.target?.[2]?.value;
-    const res = await axios.post("http://localhost:3000/api/home/createHome", {
+    const res = await axios.post("/api/home/createHome", {
       rate,
     });
-    console.log(res.data);
     router.push("/User/CreateUser");
   };
   return (
     <div
       className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey} pt-5`}
     >
-      <Container className={`${commonStyles.commonForm} pt-3`}>
-        <h3 className="alert alert-primary">ঘর তৈরি</h3>
-        <Form className="py-4" onSubmit={submitData}>
-          <label className="ms-3">আইডি / ID</label>
-          <Form.Control
-            type="number"
-            placeholder={newId}
-            className="mt-2"
-            name="name"
-            disabled
-          />
-          <br />
-          <label className="ms-3">মাসিক ভাড়া / Rate Per Month</label>
-          <Form.Control
-            type="number"
-            placeholder="(only number)"
-            name="name"
-            className="mt-2"
-          />
-          <br />
-          <Button type="submit">Submit</Button>
-        </Form>
+      <Container className={`${commonStyles.commonForm} py-3`}>
+        <div>
+          <h3 className="alert alert-primary">ঘর তৈরি</h3>
+          <form onSubmit={submitData} className="pt-4">
+            <fieldset disabled>
+              <label className="ms-3">আইডি / ID</label>
+              <input
+                type="email"
+                className="form-control mt-2 mb-4"
+                placeholder={newId}
+              />
+            </fieldset>
+            <div className="form-group">
+              <label className="ms-3">মাসিক ভাড়া / Rate Per Month</label>
+              <input
+                type="number"
+                className="form-control mt-2"
+                placeholder=" Only Number"
+              />
+            </div>
+            <br />
+            <button type="submit" className="btn btn-primary ">
+              Submit
+            </button>
+          </form>
+        </div>
       </Container>
 
       {/* <form onSubmit={submitData} className="pt-4">

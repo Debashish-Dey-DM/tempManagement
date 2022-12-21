@@ -4,8 +4,6 @@ import prisma from "../../../../lib/prisma";
 //import controller
 const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.post(async (req, res) => {
-  //const { name, fatherName, nid, mobile, dueAmount } = req.body;
-  //console.log(name, fatherName, nid, mobile, clearUpto);
   const { name, fatherName, nid, mobile, dueAmount, userType, typeId,clearUpto } =
     req.body;
 
@@ -20,7 +18,6 @@ handler.post(async (req, res) => {
       shopId1.push(shop.shop_id);
     });
     const stat1 = shopId1.includes(Number(typeId));
-    console.log(stat1);
     if (stat1) {
       const shopHomes = await prisma.user.findMany({
         select: {
@@ -107,6 +104,7 @@ handler.post(async (req, res) => {
             mobiile: Number(mobile),
             dueAmount: dueAmount,
             paidAmount: 0,
+            clearUpto: clearUpto,
             type: userType,
             homeId: Number(typeId),
           },

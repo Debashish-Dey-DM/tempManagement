@@ -6,6 +6,7 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.post(
     async (req, res) => {
         const { rate } = req.body
+    
         const home = await prisma.home.create({
             data: {
                 ratePerMonth: Number(rate),
