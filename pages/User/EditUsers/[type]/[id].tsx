@@ -16,18 +16,15 @@ const EditUser = () => {
   });
   const router = useRouter();
   const id = router.query.id;
-  console.log(id);
 
   const getUserData = async () => {
     setState(true);
-    console.log("id : ", id);
-    const result = await axios.get(`http://localhost:3000/api/user/getUserById/${id}`);
+    const result = await axios.get(`/api/user/getUserById/${id}`);
     setUser(result.data);
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name, " : ", value);
     setNewUser({ ...newuser, [name]: value });
   };
   const submitData = async (e: any) => {

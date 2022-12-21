@@ -41,3 +41,9 @@
     /* display: flex; */
     justify-content: center;
 }
+
+/* negative margin */
+
+.nmy2{
+  margin: -5px 0px 
+}

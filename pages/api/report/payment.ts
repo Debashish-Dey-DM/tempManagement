@@ -7,7 +7,6 @@ const handler = nextConnect<NextApiRequest, NextApiResponse>();
 handler.get(
     async (req, res) => {
         const { dates } = req.body;
-        console.log(dates);
         
         // const getPaymentByDate = await prisma.payment.findMany({
         //     where: {

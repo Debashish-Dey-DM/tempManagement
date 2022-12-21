@@ -7,8 +7,7 @@ handler.post(
     async (req, res) => {
         
         
-        const { userId,name, fatherName, nid, mobile, dueMonth } = req.body;
-        console.log(userId,name, fatherName, nid, mobile, dueMonth);
+        const { userId,name, fatherName, nid, mobile, clearUpto } = req.body;
         const newUser = await prisma.user.update({
             where: {
                 user_id: Number(userId)
@@ -18,7 +17,7 @@ handler.post(
                 fatherName: fatherName,
                 nid: Number(nid),
                 mobiile: Number(mobile),
-                dueMonth: Number(dueMonth),
+                clearUpto: clearUpto,
                 
             }
         })

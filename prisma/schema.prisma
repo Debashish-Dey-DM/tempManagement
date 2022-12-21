@@ -4,7 +4,6 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -17,17 +16,17 @@ model User {
   nid         Int
   mobiile     Int
   image       String?
-  dueMonth    Int
-  paidAmount  Int
-  dueAmount   Int?
+  clearUpto    String?
+  paidAmount  Int?
+  dueAmount   String?
   lastPayment DateTime?
   type        String    @default("shop") //shope,home
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   Shop        Shop?     @relation(fields: [shopId], references: [shop_id])
-  shopId      Int?       @unique
+  shopId      Int?      @unique
   Home        Home?     @relation(fields: [homeId], references: [home_id])
-  homeId      Int?       @unique
+  homeId      Int?      @unique
   Payment     Payment[]
 }
 
@@ -67,4 +66,21 @@ model Payment {
   status    String
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
+  Shoshan   Shoshan[]
+}
+
+model Shoshan {
+  id         Int      @id @default(autoincrement())
+  name       String?
+  fatherName String?
+  motherName String?
+  address    String?
+  reference  String?
+  relation   String?
+  amount     Int?
+  payment    Payment? @relation(fields: [paymentId], references: [id])
+  paymentId  Int?
+  type       String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 }

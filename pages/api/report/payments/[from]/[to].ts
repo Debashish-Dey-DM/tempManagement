@@ -14,7 +14,6 @@ handler.get(
         const from = req.query.from as string;
         const to = req.query.to as string;
         let newArr: number[] = [];
-        console.log(from, to);
         const getPaymentByDate = await prisma.payment.findMany({
             where: {
                 date: {

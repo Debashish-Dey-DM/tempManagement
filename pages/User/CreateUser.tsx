@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import commonStyles from "../../styles/common.module.css";
@@ -11,24 +12,12 @@ const CreateUser = () => {
     fatherName: "",
     nid: "",
     mobile: "",
-    dueMonth: "",
+    dueAmount: "",
     typeId: "",
+    clearUpto: "",
   });
   const [userType, setUserType] = useState("");
-  const [typeName, setTypeName] = useState({
-    name: "",
-    id: 0,
-  });
-
-  const g = 6;
-  // console.log(localStorage.getItem("shop"));
-
-  // if(localStorage.getItem("shop")){
-  //   const info = {...typeName}
-  //   info.name = 'shop'
-  //   info.id = localStorage.getItem("shop");
-  //   setTypeName(info)
-  // }
+  const router = useRouter();
 
   const submitData = async (e: any) => {
     e.preventDefault();
@@ -36,18 +25,19 @@ const CreateUser = () => {
     const fatherName = user.fatherName.toString();
     const nid = user.nid.toString();
     const mobile = user.mobile.toString();
-    const dueMonth = user.dueMonth.toString();
+    const dueAmount = user.dueAmount.toString();
     const typeId = user.typeId.toString();
-    console.log("userSubmitted : ", user);
-    console.log("userType : ", userType);
-    const res = await axios.post("http://localhost:3000/api/user/createUser", {
+    const clearUpto = user.clearUpto.toString();
+
+    const res = await axios.post("/api/user/createUser", {
       name,
       fatherName,
       nid,
       mobile,
-      dueMonth,
+      dueAmount,
       userType,
       typeId,
+      clearUpto,
     });
     if (res) {
       if (res.status === 200) {
@@ -60,18 +50,18 @@ const CreateUser = () => {
         alert("দোকান/ঘর তৈরী করা হয়নি... (Home/Shop Id Not created Yet)");
       }
     }
+    router.push("/");
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name, " : ", value);
     setUser({ ...user, [name]: value });
   };
   const mount = async () => {
-    await axios.get("http://localhost:3000/api/shop/unAssignedShop").then((res) => {
+    await axios.get("/api/shop/unAssignedShop").then((res) => {
       setShopID(res.data);
     });
-    await axios.get("http://localhost:3000/api/home/unAssignedHome").then((res) => {
+    await axios.get("/api/home/unAssignedHome").then((res) => {
       setHomeID(res.data);
     });
   };
@@ -144,10 +134,10 @@ const CreateUser = () => {
               </select>
             </Col>
             <Col md={6}>
-              <Form.Control
-                type="number"
-                placeholder="মাস বাকি (Due month)"
-                name="dueMonth"
+              <input
+                type="month"
+                placeholder="Payment clear up to"
+                name="clearUpto"
                 onBlur={handleChange}
               />
             </Col>
@@ -177,6 +167,7 @@ const CreateUser = () => {
                 <h5> </h5>
               )}
             </Col>
+
             <Col md={5}>
               <Form.Control
                 type="file"

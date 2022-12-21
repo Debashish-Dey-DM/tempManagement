@@ -21,9 +21,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-
-  const router = useRouter();
-
   // ------ firebase ------
   firebase.initializeApp(firebaseConfig);
   const auth = getAuth();
@@ -48,30 +45,29 @@ const Login = () => {
   // Sign In
   const handleSignIn = (e: any) => {
     // if auth data already exists, remove all for re-auth...
-    const nm = localStorage.getItem("ngalan");
+    const nm = localStorage.getItem("ngaLan");
     if (nm) {
       localStorage.clear();
     }
 
+    // sign in process
     signInWithEmailAndPassword(auth, user.email + "@gmail.com", user.password)
       .then((res) => {
-        
         let encryptedName = CryptoJS.AES.encrypt(user.email, 'my-secret-key@123').toString();
 
-        console.log(res);
-        // localStorage.setItem("tOken", res._tokenResponse.idToken);
-        // localStorage.setItem("lId", res._tokenResponse.localId);
-        // localStorage.setItem("kind", res._tokenResponse.kind);
-        localStorage.setItem("Token",res.user.refreshToken);
         localStorage.setItem("uId",res.user.uid);
-        // localStorage.setItem("phn",res.user.phoneNumber);
-        localStorage.setItem("ngalan", encryptedName); //name    
-
-        console.log("sign in successfully..........");
-        router.push("/");
+        localStorage.setItem("ngaLan", encryptedName); //name    
+        localStorage.setItem(`tImaan${res.user.uid}`,res.user.refreshToken);
+        location.reload();
       })
       .catch((error) => {
-        alert(error.message);
+        if(error.message === 'Firebase: Error (auth/user-not-found).'){
+          alert("User Not Found")
+        }
+        if(error.message === 'Firebase: Error (auth/wrong-password).'){
+          alert("Wrong Password")
+        }
+        // alert(error.message);
       });
 
     e.preventDefault();
@@ -81,12 +77,11 @@ const Login = () => {
   
 // set on the top ---- const CryptoJS = require("crypto-js");
   
-  //  if (typeof window !== "undefined" && localStorage.getItem("ngalan")) {
-  //   const nm = localStorage.getItem("ngalan")
-  //       let bytes = CryptoJS.AES.decrypt(nm, 'my-secret-key@123');
-  //       let decryptedName = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-  //       console.log('dectf: ,', decryptedName)
-  // }
+  // for setting admin name
+  // const nm = localStorage.getItem("ngaLan");
+  // let bytes = CryptoJS.AES.decrypt(nm, "my-secret-key@123");
+  // let nms = bytes.toString(CryptoJS.enc.Utf8);
+  // setAdminName(nms);
 
   
 

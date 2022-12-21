@@ -16,11 +16,11 @@ const AssignUser = () => {
     home: "",
   });
   const mount = async () => {
-    const res = await axios.get("http://localhost:3000/api/user/getAllUser");
+    const res = await axios.get("/api/user/getAllUser");
     setUsers(res.data);
-    const res2 = await axios.get("http://localhost:3000/api/shop/getAllShop");
+    const res2 = await axios.get("/api/shop/getAllShop");
     setShops(res2.data);
-    const res3 = await axios.get("http://localhost:3000/api/home/getAllHome");
+    const res3 = await axios.get("/api/home/getAllHome");
     setHomes(res3.data);
   };
   useEffect(() => {
@@ -30,34 +30,26 @@ const AssignUser = () => {
     e.preventDefault();
 
     const response = await axios.post(
-      `http://localhost:3000/api/user/assignToShop/${userShop.user}/${userShop.shop}`
+      `/api/user/assignToShop/${userShop.user}/${userShop.shop}`
     );
-    console.log(response);
   };
   const submitHome = async (e: any) => {
     e.preventDefault();
     const response2 = await axios.post(
-      `http://localhost:3000/api/user/assignToHome/${userHome.user}/${userHome.home}`
+      `/api/user/assignToHome/${userHome.user}/${userHome.home}`
     );
-    console.log(response2);
   };
   const handleShop = (e: any) => {
     const name1 = e.target.name;
     const value1 = e.target.value;
 
-    console.log(name1, value1);
     setUserShop({ ...userShop, [name1]: value1 });
   };
   const handleHome = (e: any) => {
     const name1 = e.target.name;
     const value1 = e.target.value;
 
-    console.log(name1, value1);
     setUserHome({ ...userHome, [name1]: value1 });
-  };
-  const test = async () => {
-    console.log(userShop);
-    console.log(userHome);
   };
 
   return (

@@ -1,0 +1,221 @@
+import { Payment } from "@prisma/client";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useState, useRef } from "react";
+import { Button, Container, Row, Col, Form } from "react-bootstrap";
+import DataTable from "react-data-table-component";
+import { useReactToPrint } from "react-to-print";
+import commonStyles from "../../styles/common.module.css";
+import dtStyle from "./sosan.module.css";
+
+const ShoshanDevShot = () => {
+  const [payment, setPayment] = useState<Payment[]>();
+  console.log("payment: ", payment);
+  const [pay, setPay] = useState({
+    type: "ShoshanDevShot",
+    name: "",
+    fatherName: "",
+    motherName: "",
+    address: "",
+    reference: "",
+    relation: "",
+    amount: "",
+    shoshanType: "Shot",
+    date: "",
+  });
+  const [singleUser, setSingleUser] = useState();
+  let numberToBengliWords = require("number-to-bengli-words");
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  const handlePaymentSlip = async (e: any) => {
+    await axios
+      // .get("/api/Payments/getPayments/ShoshanDevDaho")
+      .get("/api/Payments/getShosanById/" + e)
+      .then((res) => {
+        if (res.data.type === "Shot") {
+          setSingleUser(res.data);
+        }
+      });
+    handlePrint();
+  };
+  const columns = [
+    {
+      name: "তারিখ",
+      selector: (row: any) =>
+        new Date(row.date).toLocaleDateString("en-us", {
+          day: "numeric",
+          year: "numeric",
+          month: "short",
+        }),
+      sortable: true,
+    },
+    {
+      name: "পরিমান",
+      selector: (row: any) => row.amount,
+    },
+  ];
+  const customStyles = {
+    rows: {
+      style: {
+        fontSize: "15px",
+      },
+    },
+    headCells: {
+      style: {
+        fontWeight: "bold",
+        fontSize: "15px",
+      },
+    },
+  };
+  const mount = async () => {
+    await axios
+      .get("/api/Shosan/getAllShosan")
+      .then((res) => {
+        console.log(res.data);
+        setPayment(res.data);
+      });
+  };
+  useEffect(() => {
+    mount();
+  }, []);
+  const handleSubmit = async (e: any) => {
+    //need to change database acording to scn sht
+    e.preventDefault();
+
+    const result = await axios
+      .post("/api/Payments/createShoshanPayment", {
+        pay,
+      })
+      .then((res) => {
+        console.log('submit: ',res.data);
+        
+      })
+      .catch((err) => {
+        alert(err);
+      });
+    mount();
+  };
+  const handleChange = (e: any) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    if (name === "date") {
+      const newDate = new Date(value);
+      const updatedDate = newDate.toISOString();
+      setPay({ ...pay, [name]: updatedDate });
+    } else {
+      setPay({ ...pay, [name]: value });
+    }
+  };
+  
+
+  return (
+    <div>
+      <div
+        className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
+      >
+        <Container className={`${commonStyles.commonForm} pt-3`}>
+          <h3 className="alert alert-primary">শ্মশান উন্নয়ন (সৎকার)</h3>
+          <h3>অনুদান প্রাপ্তি রসিদ - </h3>
+
+          <Form className="py-4" onSubmit={handleSubmit}>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="নাম (শবদেহ)"
+                  name="name"
+                  onBlur={handleChange}
+                  required
+                />
+              </Col>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="পিতা/স্বামীর নাম"
+                  name="fatherName"
+                  onBlur={handleChange}
+                />
+              </Col>
+            </Row>
+
+            <Row className="my-4">
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="মাতার নাম"
+                  name="motherName"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="ঠিকানা"
+                  name="address"
+                  onBlur={handleChange}
+                />
+              </Col>
+            </Row>
+
+            <Row className="my-4">
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="পক্ষে (প্রতিনিধি)"
+                  name="pokkhe"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  placeholder="মুখাগ্নিকারী/সম্পর্ক"
+                  name="relation"
+                  onBlur={handleChange}
+                />
+              </Col>
+            </Row>
+
+            <Row className="my-4">
+              <Col md={6}>
+                <Form.Control
+                  type="number"
+                  placeholder="উন্নয়ন ফি বাবদ অনুদান"
+                  name="amount"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={3}>
+                <Form.Control
+                  type="date"
+                  placeholder="Date"
+                  name="date"
+                  onBlur={handleChange}
+                />
+              </Col>
+              <Col md={3} className='mt-2'>
+                <Button type="submit">Submit</Button>
+              </Col>
+            </Row>
+          </Form>
+        </Container>
+      </div>
+      <Container className={`${commonStyles.commonForm} pt-3`}>
+        <DataTable
+          className={dtStyle.dataTable}
+          columns={columns}
+          data={payment ? payment : []}
+          highlightOnHover
+          pagination
+          fixedHeader
+          fixedHeaderScrollHeight="350px"
+          customStyles={customStyles}
+        />
+      </Container>
+    </div>
+  );
+
+};
+export default ShoshanDevShot;

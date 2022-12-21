@@ -9,6 +9,7 @@ handler.post(
         const shop = await prisma.shop.create({
             data: {
                 ratePerMonth: Number(rate),
+
             }
         })
         res.json(shop)

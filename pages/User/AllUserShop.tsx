@@ -34,7 +34,6 @@ const AllUserShop = () => {
    
         let bytes = CryptoJS.AES.decrypt(nm, 'my-secret-key@123');
         let decryptedName = bytes.toString(CryptoJS.enc.Utf8);
-        // console.log('dectf:', decryptedName)
   }
     return (
         <div>

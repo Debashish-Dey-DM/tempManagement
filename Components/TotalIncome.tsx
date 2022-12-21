@@ -1,215 +1,44 @@
-import React, { useRef } from 'react';
-import { Button } from 'react-bootstrap';
-import ReactToPrint from 'react-to-print';
+import { useRef } from "react";
+import { Button } from "react-bootstrap";
+import ReactToPrint from "react-to-print";
 
-const TotalIncome = ({payments}) => {
-    
+const TotalIncome = ({ totalIncome, paymentProps }: any) => {
   //printing functionality
-  const componentRef = useRef();
-    return (
-        <div>
-            <ReactToPrint
-                  trigger={() => <Button variant="secondary">Print income</Button>}
-                  content={() => componentRef.current}
-                  documentTitle="ইনকাম"
-                  pageStyle="print"
-                />
-            <div ref={componentRef}>
-              <table className="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Type</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {payments?.map((p, i) => {
-                  return (
-                    <tr key={i}>
-                      <td>{p?.date}</td>
-                      <td>{p?.amount}</td>
-                      <td>{p?.type}</td>
-                    </tr>
-                  );
-                })}
+  const componentRef = useRef(null);
 
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>100</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>600</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>200</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>800</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>900</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>200</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>300</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>400</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>700</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>100</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>600</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>300</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>100</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>600</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>200</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>800</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>900</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>200</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>300</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>400</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>700</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>100</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>600</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>500</td>
-                    <td>Dokan</td>
-                  </tr>
-                  <tr>
-                    <td>10/12/2021</td>
-                    <td>300</td>
-                    <td>Dokan</td>
-                  </tr>
-                 
-                </tbody>
-              </table>
-            </div>
-        </div>
-    );
+  return (
+    <div>
+      <ReactToPrint
+        trigger={() => <Button variant="secondary">Print income</Button>}
+        content={() => componentRef.current}
+        documentTitle="ইনকাম"
+        pageStyle="print"
+      />
+      <div ref={componentRef}>
+        <table className="table table-striped mt-3">
+          <thead>
+            <tr>
+              <th scope="col">আয়ের ধরন </th>
+              <th scope="col">পরিমাণ</th>
+            </tr>
+          </thead>
+          <tbody>
+            {paymentProps?.map((p: any, i: any) => {
+               return (
+                p.amount>0 && <tr key={i}>
+                  <td>{p?.name}</td>
+                  <td>{(p?.amount).toLocaleString("bn-BD")}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <h5 style={{ overflow: "hidden" }}>
+          মোট আয়: {totalIncome.toLocaleString("bn-BD")}
+        </h5>
+      </div>
+    </div>
+  );
 };
 
 export default TotalIncome;

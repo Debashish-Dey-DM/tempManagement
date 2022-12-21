@@ -1,7 +1,8 @@
 import { Payment } from "@prisma/client";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import ReactToPrint from "react-to-print";
 import commonStyles from "../../styles/common.module.css";
 const Payment = () => {
   const [dates, setDates] = useState({
@@ -9,22 +10,61 @@ const Payment = () => {
     to: "",
   });
   const [type, setType] = useState("");
+  const [banglaType, setBanglaType] = useState(""); // for printing bangla type
   const [total, setTotal] = useState(0);
   const [expenses, setExpenses] = useState<Payment[]>();
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    if (type !== "") {
+      if (type === "TempDev") {
+        setBanglaType("মন্দির উন্নয়ন");
+      }
+      if (type === "FuneralDev") {
+        setBanglaType("শ্মশান উন্নয়ন");
+      }
+      if (type === "EmployeeSalary") {
+        setBanglaType("সম্মানি-বেতন-ভাতাদি");
+      }
+      if (type === "DailyPuja") {
+        setBanglaType("দৈনিক/সাপ্তাহিক পূজা ভাড়া");
+      }
+      if (type === "Appayon") {
+        setBanglaType(" আপ্যায়ন সভা ও বিশেষ প্রার্থনা");
+      }
+      if (type === "Prosasonik") {
+        setBanglaType("প্রশাসনিক ও আইন");
+      }
+      if (type === "ProcharProkashona") {
+        setBanglaType("প্রচার প্রকাশনা ও যাতায়াত");
+      }
+      if (type === "OfficeCost") {
+        setBanglaType("অফিস স্টেশনারী");
+      }
+      if (type === "SebamulokDan") {
+        setBanglaType("সমাজ কল্যাণ কাজ এবং দান অনুদান");
+      }
+      if (type === "UtilityBill") {
+        setBanglaType("বিদ্যুৎ, গ্যাস, টেলিফোন");
+      }
+      if (type === "BibidhExpense") {
+        setBanglaType("বিবিধ");
+      }
+      if (type === "SpecialFunction") {
+        setBanglaType("বিশেষ অনুষ্ঠান");
+      }
+    }
+  }, [type]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setShow(true);
 
     const result = await axios
-      .get(
-        `http://localhost:3000/api/report/expenses/${dates.from}/${dates.to}/${type}`
-      )
+      .get(`/api/report/expenses/${dates.from}/${dates.to}/${type}`)
       .then((res) => {
         setExpenses(res.data?.payments);
         setTotal(res.data?.total);
-        console.log(res.data);
       });
   };
   const handleChange = (e: any) => {
@@ -34,6 +74,10 @@ const Payment = () => {
     const updatedDate = newDate.toISOString();
     setDates({ ...dates, [name]: updatedDate });
   };
+
+  // for printing
+  const componentRef = useRef(null);
+
   return (
     <div
       className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
@@ -49,27 +93,32 @@ const Payment = () => {
                 onClick={(e: any) => setType(e.target.value)}
               >
                 <option value="">Select</option>
-                <option value="TempDev">TempDev</option>
-                <option value="">মন্দির উন্নয়ন ও সংস্কারমূলক কাজ</option>
-                <option value="">শ্মশান উন্নয়ন ও সংস্কারমূলক কাজ</option>
-                <option value="">
+                <option value="TempDev">মন্দির উন্নয়ন ও সংস্কারমূলক কাজ</option>
+                <option value="FuneralDev">
+                  শ্মশান উন্নয়ন ও সংস্কারমূলক কাজ
+                </option>
+                <option value="EmployeeSalary">
                   মন্দির কার্যে সংশ্লিষ্টদের সম্মানি-বেতন-ভাতাদি
                 </option>
-                <option value="">দৈনিক/সাপ্তাহিক পূজা</option>
-                <option value="">
+                <option value="DailyPuja">দৈনিক/সাপ্তাহিক পূজা</option>
+                <option value="Appayon">
                   আপ্যায়ন সভা ও বিশেষ প্রার্থনা ভোগ ইত্যাদি খরচ
                 </option>
-                <option value="">প্রশাসনিক ও আইন সংক্রান্ত খরচ</option>
-                <option value="">
+                <option value="Prosasonik">
+                  প্রশাসনিক ও আইন সংক্রান্ত খরচ
+                </option>
+                <option value="ProcharProkashona">
                   মন্দির সংশ্লিষ্ট প্রচার প্রকাশনা ও যাতায়াত বাবদ খরচাদি
                 </option>
-                <option value="">অফিস স্টেশনারী-খাতা-কলম</option>
-                <option value="">
+                <option value="OfficeCost">অফিস স্টেশনারী-খাতা-কলম</option>
+                <option value="SebamulokDan">
                   মন্দির হতে বিভিন্ন সেবামূলক, সমাজ কল্যাণ কাজ এবং দান অনুদান
                 </option>
-                <option value="">বিদ্যুৎ, গ্যাস, টেলিফোন ও অন্যান্য বিল</option>
-                <option value="">বিবিধ</option>
-                <option value="">বিশেষ অনুষ্ঠান সমূহ</option>
+                <option value="UtilityBill">
+                  বিদ্যুৎ, গ্যাস, টেলিফোন ও অন্যান্য বিল
+                </option>
+                <option value="BibidhExpense">বিবিধ</option>
+                <option value="SpecialFunction">বিশেষ অনুষ্ঠান সমূহ</option>
               </select>
             </Col>
 
@@ -104,13 +153,19 @@ const Payment = () => {
           </Row>
 
           <div className={`${show ? "d-block" : "d-none"}`}>
-            <h4>Type: {type}</h4>
-            <table className="table table-striped">
+            <h4>Type: {banglaType}</h4>
+            <ReactToPrint
+              trigger={() => <Button variant="secondary">Print income</Button>}
+              content={() => componentRef.current}
+              documentTitle={`ব্যায়ের রিপোর্ট - ${banglaType}`}
+              pageStyle="print"
+            />
+            <table className="table table-striped mt-3 ">
               <thead>
                 <tr>
-                  <th scope="col">Date</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Type</th>
+                  <th scope="col">তারিখ</th>
+                  <th scope="col">পরিমাণ</th>
+                  <th scope="col">ব্যায়ের ধরন</th>
                 </tr>
               </thead>
               <tbody>
@@ -118,15 +173,48 @@ const Payment = () => {
                   return (
                     <tr key={i}>
                       <td>{new Date(p.date).toLocaleDateString("bn-BD")}</td>
-                      <td>{p?.amount}</td>
-                      <td>{p?.type}</td>
+                      <td>{p?.amount.toLocaleString("bn-BD")}</td>
+                      <td>{banglaType}</td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
 
-            <h4>Total: {total}</h4>
+            <h5>Total: {total.toLocaleString("bn-BD")} টাকা</h5>
+
+            {/* for printing purpose */}
+
+            <div style={{ display: "none" }}>
+              <div ref={componentRef}>
+                <h3 className="mt-3 text-center">
+                  শ্রী শ্রী বরদেস্বরী কালি মাতা মন্দির
+                </h3>
+                <table className="table table-striped mt-3 ">
+                  <thead>
+                    <tr>
+                      <th scope="col">তারিখ</th>
+                      <th scope="col">পরিমাণ</th>
+                      <th scope="col">ব্যায়ের ধরন</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {expenses?.map((p, i) => {
+                      return (
+                        <tr key={i}>
+                          <td>
+                            {new Date(p.date).toLocaleDateString("bn-BD")}
+                          </td>
+                          <td>{p?.amount.toLocaleString("bn-BD")}</td>
+                          <td>{banglaType}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <h6>Total: {total.toLocaleString("bn-BD")} টাকা</h6>
+              </div>
+            </div>
           </div>
         </form>
       </Container>

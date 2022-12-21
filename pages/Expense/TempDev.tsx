@@ -1,22 +1,43 @@
+import { Payment } from "@prisma/client";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Button, Container, Row } from "react-bootstrap";
+import commonStyles from "../../styles/common.module.css";
+import styles from "../Payments/ShoshanDevDaho.module.css";
+
 const TempDev = () => {
+  const [payment, setPayment] = useState<Payment[]>();
+  const [totalAmount, setTotalAmount] = useState(0);
   const [pay, setPay] = useState({
     type: "TempDev",
     date: "",
     amount: "",
   });
+  const mount = async () => {
+    await axios.get("/api/Expenses/getPayments/TempDev").then((res) => {
+      setPayment(res.data);
+      let arr: number[] = [];
+      res.data?.map((item: Payment) => {
+        arr.push(item.amount);
+      });
+      const sum = arr.reduce((a, b) => a + b, 0);
+      setTotalAmount(sum);
+    });
+  };
+  useEffect(() => {
+    mount();
+  }, []);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const result = await axios
-      .post("http://localhost:3000/api/Expenses/createExpense", { pay })
-      .then((res) => {
-        console.log(res.data);
-      })
+      .post("/api/Expenses/createExpense", { pay })
+      .then((res) => {})
       .catch((err) => {
-        console.log(err);
+        alert(err);
       });
+    mount();
+    location.reload();
   };
   const handleChange = (e: any) => {
     const name = e.target.name;
@@ -30,44 +51,81 @@ const TempDev = () => {
     }
   };
   return (
-    <div>
-      <h1>TempDev</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="">amount</label>
-          <input
-            type="text"
-            onChange={handleChange}
-            name="amount"
-            placeholder="amount"
-          />
-          <br />
-          {/* <label htmlFor="">Month</label>
-                    <select name="Month" id="">
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select> */}
-          <label htmlFor="">Date</label>
-          <input
-            type="Date"
-            onChange={handleChange}
-            name="date"
-            placeholder="Date"
-          />
-          <br />
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+    <div
+      className={`${commonStyles.UserformBG} ${commonStyles.common} ${commonStyles.bgLightGrey}`}
+    >
+      <Container
+        className={`${commonStyles.commonForm} ${styles.minHeight35} py-3`}
+      >
+        <h3 className="mb-4 alert alert-primary">
+          মন্দির উন্নয়ন ও সংস্কারমূলক কাজ
+        </h3>
+        <Row className="row">
+          <div className="col-lg-5 col-md-12">
+            <form onSubmit={handleSubmit} className="w-50 ">
+              <div>
+                {/* myCode */}
+                <h6>পরিমাণ</h6>
+                <div className="input-group mb-3">
+                  <input
+                    type="text"
+                    placeholder="Amount"
+                    required
+                    name="amount"
+                    className="form-control"
+                    onChange={handleChange}
+                  />
+                </div>
+                <h6>তারিখ</h6>
+                <div className="input-group mb-3">
+                  <input
+                    type="Date"
+                    placeholder="Dates"
+                    required
+                    name="date"
+                    className="form-control"
+                    onChange={handleChange}
+                  />
+                </div>
+                {/* myCode */}
+                <Button type="submit">Submit</Button>
+              </div>
+            </form>
+          </div>
+          {/* table data  */}
+          <div className={`col-lg-7 col-md-12 ${styles.tblData}`}>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>তারিখ</th>
+                  <th>পরিমাণ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {payment?.map((p, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{new Date(p.date).toLocaleDateString("bn-BD")}</td>
+                      <td>{p.amount}</td>
+                    </tr>
+                  );
+                })}
+                <tr>
+                  <td>
+                    <h6>
+                      <strong>মোট</strong>
+                    </h6>
+                  </td>
+                  <td>
+                    {" "}
+                    <strong>{totalAmount}</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Row>
+      </Container>
     </div>
   );
 };

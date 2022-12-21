@@ -10,7 +10,7 @@ const ShopOwner = () => {
   const router = useRouter();
   const [user, setUser] = useState<UserExtended[]>();
   const mount = async () => {
-    const result = await axios.get(`http://localhost:3000/api/user/getAllHomeOwner`);
+    const result = await axios.get(`/api/user/getAllHomeOwner`);
     setUser(result.data);
   };
   useEffect(() => {
@@ -25,11 +25,11 @@ const ShopOwner = () => {
             <th scope="col">আবাসন নং </th>
             <th scope="col">ভাড়াটিয়ার নাম</th>
             <th scope="col">পিতার নাম</th>
-            <th scope="col">ভাড়ার হার</th>
+            <th scope="col">ভাড়ার</th>
+            <th scope="col">porisodh</th>
             <th scope="col">মোবাইল নাম্বার</th>
             <th scope="col">এন.আই.ডি/NID</th>
             <th scope="col">ছবি</th>
-            <th scope="col">মাস বাকি</th>
             <th scope="col">Edit</th>
             <th scope="col">Payment</th>
           </tr>
@@ -42,10 +42,16 @@ const ShopOwner = () => {
                 <td>{u?.name}</td>
                 <td>{u?.fatherName}</td>
                 <td>{u?.Home?.ratePerMonth}</td>
+                <td>
+                  {u?.clearUpto &&
+                    new Date(u?.clearUpto).toLocaleDateString("en-US", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+                </td>
                 <td>{u?.mobiile}</td>
                 <td>{u?.nid}</td>
                 <td>{u?.image}</td>
-                <td>{u?.dueMonth}</td>
                 <td>
                   <Button
                     variant="dark"
@@ -58,7 +64,14 @@ const ShopOwner = () => {
                 <td>
                   <Button
                     variant="info"
-                    onClick={() => router.push(`/Payments/Home/${u?.user_id}`)}
+                    onClick={() => {
+                      router.push(`/Payments/Home/${u?.user_id}`);
+                      sessionStorage.setItem(
+                        "rate_per_month",
+                        `${u?.Home?.ratePerMonth}`
+                      );
+                      sessionStorage.setItem("homeID", `${u?.homeId}`);
+                    }}
                   >
                     Payment
                   </Button>
