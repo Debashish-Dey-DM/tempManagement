@@ -35,7 +35,7 @@ const HomePayments = () => {
   const [clearUpto, setClearUpto] = useState("");
   const [state, setState] = useState(false);
   const [homeID, setHomeID] = useState();
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<any>();
   const router = useRouter();
   const [payment1, setPayment1] = useState<Payment[]>();
   const [payment, setpayment] = useState<any>({
